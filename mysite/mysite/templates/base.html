@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Site</title>
+    <style>
+        /* CSS for desktop */
+        @media (min-width: 600px) {
+            .navbar {
+                display: flex;
+                justify-content: space-around;
+            }
+            .menu {
+                display: none;
+            }
+        }
+
+        /* CSS for mobile */
+        @media (max-width: 600px) {
+            .navbar {
+                display: none;
+            }
+            .menu {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop navigation bar -->
+    <div class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'settings' %}">Settings</a>
+        <!-- Can add more links here -->
+    </div>
+
+    <!-- Mobile navigation menu -->
+    <div class="menu">
+        <button onclick="openMenu()">☰</button>
+        <div id="menuLinks" style="display: none;">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'settings' %}">Settings</a>
+            <!-- Can add more links here -->
+        </div>
+    </div>
+
+    <script>
+        function openMenu() {
+            var menuLinks = document.getElementById('menuLinks');
+            if (menuLinks.style.display === 'none') {
+                menuLinks.style.display = 'block';
+            } else {
+                menuLinks.style.display = 'none';
+            }
+        }
+    </script>
+
+    <!-- Content -->
+    {% block content %}{% endblock %}
+</body>
+</html>
