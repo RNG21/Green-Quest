@@ -4,7 +4,7 @@
     <title>My Site</title>
     <style>
         /* CSS for desktop */
-        @media (min-width: 600px) {
+        @media (min-width: 769px) {
             .navbar {
                 display: flex;
                 justify-content: space-around;
@@ -27,11 +27,27 @@
                 display: none;
             }
         }
-
         /* CSS for mobile */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .navbar {
                 display: none;
+                flex-direction: column;
+                align-items: center;
+                background-color: rgba(132, 188, 65, 0.8); /* green with 80% opacity */
+                border-radius: 25px; /* smoother edges */
+                padding: 10px;
+            }
+            .navbar a {
+                text-decoration: none;
+                color: white;
+                background-color: #333;
+                padding: 10px 20px;
+                border-radius: 15px; /* smoother edges */
+                margin: 5px 0; /* space between buttons */
+                transition: background-color 0.3s ease;
+            }
+            .navbar a:active {
+                background-color: #555;
             }
             .menu {
                 display: block;
@@ -41,37 +57,27 @@
 </head>
 <body>
     <!-- Desktop navigation bar -->
-    <div class="navbar">
+    <div class="navbar" id="navbar">
         <a href="{% url 'home' %}">Home</a>
         <a href="{% url 'challenges' %}">Challenges</a>
         <a href="{% url 'leaderboard' %}">Leaderboard</a>
         <a href="{% url 'settings' %}">Settings</a>
         <!-- Can add more links here -->
     </div>
-
     <!-- Mobile navigation menu -->
     <div class="menu">
-        <button onclick="openMenu()">☰</button>
-        <div id="menuLinks" style="display: none;">
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'challenges' %}">Challenges</a>
-            <a href="{% url 'leaderboard' %}">Leaderboard</a>
-            <a href="{% url 'settings' %}">Settings</a>
-            <!-- Can add more links here -->
-        </div>
+        <button onclick="toggleNavbar()">☰</button>
     </div>
-
     <script>
-        function openMenu() {
-            var menuLinks = document.getElementById('menuLinks');
-            if (menuLinks.style.display === 'none') {
-                menuLinks.style.display = 'block';
+        function toggleNavbar() {
+            var navbar = document.getElementById('navbar');
+            if (navbar.style.display === 'none') {
+                navbar.style.display = 'flex';
             } else {
-                menuLinks.style.display = 'none';
+                navbar.style.display = 'none';
             }
         }
     </script>
-
     <!-- Content -->
     {% block content %}{% endblock %}
 </body>
