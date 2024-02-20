@@ -9,15 +9,20 @@
                 display: flex;
                 justify-content: space-around;
                 background-color: rgba(132, 188, 65, 0.9); /* Green  at 0.9 transparency*/
-                border-radius: 50px;
                 padding: 10px;
+                position:fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                z-index: 1000;
             }
             .navbar a {
                 color: white;
                 text-decoration: none;
                 background-color: #333;
                 padding: 10px 20px;
-                border-radius: 25px;
+                border-radius: 5px;
                 transition: background-color 0.3s ease;
             }
             .navbar a:hover {
@@ -25,6 +30,9 @@
             }
             .menu {
                 display: none;
+            }
+            .navbar a, .menu button {
+                font-family: Copperplate, "Copperplate Gothic Light", fantasy;
             }
         }
         /* CSS for mobile */
@@ -52,7 +60,19 @@
             .menu {
                 display: block;
             }
-        }
+            .menu button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;}
+            }
+            .menu button:active {
+                background-color: #555;
+            }
     </style>
 </head>
 <body>
