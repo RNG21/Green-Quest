@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Site</title>
+    <style>
+        /* CSS for desktop 
+        @media (min-width: 769px) {
+            .navbar {
+                display: flex;
+                justify-content: space-around;
+                background-color: rgba(132, 188, 65, 0.9); 
+                padding: 10px;
+                position:fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                z-index: 1000;
+            }
+            .navbar a {
+                color: white;
+                text-decoration: none;
+                background-color: #333;
+                padding: 10px 20px;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+            .navbar a:hover {
+                background-color: #555;
+            }
+            .menu {
+                display: none;
+            }
+            .navbar a, .menu button {
+                font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+            }
+        }
+        */
+        /* CSS for mobile */
+        @media (min-width: 768px) {
+            .navbar {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                height: 100%;
+                width: 0;
+                top: 0;
+                left: 0;
+                overflow-x: hidden;
+                background-color: rgba(132, 188, 65, 0.8); /* green with 80% opacity */
+                padding-top: 60px;
+                transition: 0.5s;
+                justify-content: space-evenly;
+                padding-bottom: 60px;
+                
+            }
+            .navbar a {
+                text-decoration: none;
+                color: white;
+                background-color: #333;
+                padding: 10px 20px;
+                border-radius: 5px; 
+                margin: 5px 0;
+                transition: background-color 0.3s ease;
+            }
+            .navbar a:active {
+                background-color: #555;
+            }
+            .navbar a:last-child {
+                margin-bottom: 50px;
+            }
+            .menu {
+                display: block;
+            }
+            .menu button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;}
+            }
+            .menu button:active {
+                background-color: #555;
+            }
+    </style>
+</head>
+<body>
+    <!-- Desktop navigation bar -->
+    <div class="navbar" id="navbar">
+        <button class="closeNavbar" onclick="toggleNavbar()">✖</button>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'challenges' %}">Challenges</a>
+        <a href="{% url 'leaderboard' %}">Leaderboard</a>
+        <a href="{% url 'settings' %}">Settings</a>
+        <!-- Can add more links here -->
+    </div>
+    <!-- Mobile navigation menu -->
+    <div class="menu">
+        <button onclick="toggleNavbar()">☰</button>
+    </div>
+    <script>
+        function toggleNavbar() {
+            var navbar = document.getElementById('navbar');
+            var menuButton = document.querySelector('.menu');
+            if (navbar.style.width === '0px') {
+                navbar.style.width = '250px';
+                menuButton.style.display = 'none';
+            } else {
+                navbar.style.width = '0px';
+                setTimeout(function(){
+                menuButton.style.display = 'flex';
+                }, 500);
+            }
+        }
+    </script>
+    <!-- Content -->
+    {% block content %}{% endblock %}
+</body>
+</html>
