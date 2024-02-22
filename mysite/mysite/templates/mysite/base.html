@@ -115,6 +115,23 @@
                 }, 500);
             }
         }
+        let startXpos = 0;
+        let endXpos = 0;
+        function swipeDirection(){
+            if (endXpos < startXpos) {
+                toggleNavbar(); /* Swiped right */
+            }
+            else if ((endXpos > startXpos) && (document.getElementById('navbar').style.width === '250px')){
+                toggleNavbar(); /* Swiped left */
+            }
+        }
+        document.addEventListener('touchstart', function(event) {
+            startXpos = event.changedTouches[0].clientX;
+        }, false);
+        document.addEventListener('touchend', function(event) {
+            endXpos = event.changedTouches[0].clientX;
+            swipeDirection();
+        }, false);
     </script>
     <!-- Content -->
     {% block content %}{% endblock %}
