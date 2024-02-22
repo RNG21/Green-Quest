@@ -115,14 +115,22 @@
                 }, 500);
             }
         }
+        function closeNavbar(){
+            document.getElementById('navbar').style.width = '0px';
+            document.querySelector('.menu').style.display = 'flex';
+        }
+        function openNavbar(){
+            document.getElementById('navbar').style.width = '250px';
+            document.querySelector('.menu').style.display = 'none';
+        }
         let startXpos = 0;
         let endXpos = 0;
         function swipeDirection(){
             if (endXpos < startXpos) {
-                toggleNavbar(); /* Swiped right */
+                closeNavbar(); /* Swiped right */
             }
-            else if ((endXpos > startXpos) && (document.getElementById('navbar').style.width === '250px')){
-                toggleNavbar(); /* Swiped left */
+            else if ((endXpos > startXpos)){
+                openNavbar(); /* Swiped left */
             }
         }
         document.addEventListener('touchstart', function(event) {
