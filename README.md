@@ -4,5 +4,5 @@ Group X Members:
  Junren Wu
  Yu Shi
  Franky Tsang
-
+ Yuan Zhuang
  
