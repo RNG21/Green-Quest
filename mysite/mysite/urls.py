@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from mysite import views
 from challenges import views as cviews
+from login import views as lviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +28,6 @@ urlpatterns = [
     path('leaderboard/', views.leaderboard, name='leaderboard'),
     path("challenges/", cviews.render_map,name='challenges'),
     #challenges or tasks what do we name it.
-    path('login/', views.login, name='login'),
+    path('login/', lviews.logins, name='login'),
+    path('register/', lviews.register, name='register')
 ]
