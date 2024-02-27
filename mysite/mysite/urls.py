@@ -25,7 +25,7 @@ urlpatterns = [
     path('base/', views.base, name='base'),
     path('settings/', views.settings, name='settings'),
     path('leaderboard/', views.leaderboard, name='leaderboard'),
-    path("challenges/", cviews.render_map),
+    path("challenges/", cviews.render_map,name='challenges'),
     #challenges or tasks what do we name it.
     path('login/', views.login, name='login'),
 ]
