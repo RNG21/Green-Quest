@@ -1,3 +1,4 @@
+#Author: Fred Westhead
 from django.shortcuts import render
 from django.http import HttpResponse
 # Can add more views here. I think these are all the ones the navbar links to ? 
