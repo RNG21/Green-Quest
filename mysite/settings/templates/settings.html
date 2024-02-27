@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+</head>
+<body>
+
+<div id="Welcome">
+    <h1>Welcome to your settings </h1>
+</div>
+
+<div id="logout">
+    <form>
+        <input type="submit" value="Logout">
+    </form>
+</div>
+
+<div id="changePassword">
+    <form>
+        <input type="password" placeholder="Old password">
+        <input type="password" placeholder="New password">
+        <input type="password" placeholder="Repeat new password">
+        <input type="submit" value="Change password">
+    </form>
+</div>
+
+<div id="deleteAccount">
+    <form method="post" action="{% url 'delete-account' %}">
+        <label id="password">
+            <input type="password" placeholder="Password">
+        </label>
+        <input type="submit" value="Delete account">
+    </form>
+</div>
+</body>
+</html>
