@@ -30,8 +30,6 @@ urlpatterns = [
     path("settings/", sviews.render_settings, name="settings"),
     path("settings/delete_account/", sviews.delete_account, name="delete_account"),
     path("settings/logoutUser/", sviews.logoutUser, name="logoutUser"),
-  
-    #challenges or tasks what do we name it.
     path('login/', lviews.logins, name='login'),
     path('register/', lviews.register, name='register')
 ]

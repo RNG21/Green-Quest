@@ -3,46 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Settings</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/settings.css' %}">
 </head>
 <body>
 
 <div id="Welcome">
     <h1>Welcome to your settings {{ user.username }}</h1>
-
 </div>
 
-<div id="logout">
-    <form method="post" action={% url 'logoutUser' %}>
-        {% csrf_token %}
-        <label id="logout">
-            <input type="submit" value="Logout">
-        </label>
-    </form>
+<div id="container">
+    <div id="logout">
+        <form method="post" action={% url 'logoutUser' %}>
+            {% csrf_token %}
+            <label id="logout">
+                <input type="submit" value="Logout">
+            </label>
+        </form>
+    </div>
+
+    <div id="changePassword">
+        <form>
+            {% csrf_token %}
+            <label id="oldPassword">
+                <input type="password" placeholder="Old password">
+            </label>
+            <label id="newPassword">
+                <input type="password" placeholder="New password">
+            </label>
+            <label id="confirmPassword">
+                <input type="password" placeholder="Confirm new password">
+            </label>
+            <input type="submit" value="Change password">
+        </form>
+    </div>
+
+    <div id="deleteAccount">
+        <form method="post" action="{% url 'delete_account' %}">
+            {% csrf_token %}
+            <label for="password">Enter your password to delete your account:</label><br>
+            <input type="password" id="password" name="password" placeholder="Password"><br>
+            <input type="submit" value="Delete account">
+        </form>
+    </div>
 </div>
 
-<div id="changePassword">
-    <form>
-        {% csrf_token %}
-        <label id="oldPassword">
-            <input type="password" placeholder="Old password">
-        </label>
-        <label id="newPassword">
-            <input type="password" placeholder="New password">
-        </label>
-        <label id="confirmPassword">
-            <input type="password" placeholder="Confirm new password">
-        </label>
-        <input type="submit" value="Change password">
-    </form>
-</div>
-
-<div id="deleteAccount">
-    <form method="post" action="{% url 'delete_account' %}">
-        {% csrf_token %}
-        <label for="password">Enter your password to delete your account:</label><br>
-        <input type="password" id="password" name="password" placeholder="Password"><br>
-        <input type="submit" value="Delete account">
-    </form>
-</div>
 </body>
 </html>
