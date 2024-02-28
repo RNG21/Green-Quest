@@ -20,6 +20,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            text-decoration: none;
+            color: black;
+            
+        }
+        a:visited .container {
+            color: black;
         }
 
         .text-box {
@@ -40,16 +46,24 @@
             font-size: 1.5em;
             font-family: "Lucida Console", "Courier New", monospace;
         }
+        .play_text {
+            font-size: 0.5em;
+            font-family: "Lucida Console", "Courier New", monospace;
+        }
+        
 
     </style>
 </head>
 <body>
+    <a href="{% url 'challenges' %}">
     <div class="container">
         <div class="text-box">
             <p class = "group-name">Group X</p>
             <h1 class="main-text">Sustainability Challenge</h1>
             <p class="sub-text">Complete challenges to help make the University green!</p>
+            <p class="play_text">Press to play!</p>
         </div>
     </div>
+    </a>
 </body>
 </html>
