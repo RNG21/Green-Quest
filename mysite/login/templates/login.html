@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <title>Login</title>
+</head>
+
+  <div style="width: 70%; margin: 0 auto; padding-top: 20em;padding-bottom: 20em;">
+    <div class="ui stackable centered column grid">
+      <div class="centered row">
+        <div class="six wide column">
+          <div style="padding-bottom: 5em; background-color: rgba(245, 245, 245,0.5);" class="ui segment">
+            <form action="/login/" method="POST" class="ui form">
+              {% csrf_token %}
+              <h3 style="color: red;">{{ msg }}</h3>
+              <div class="field">
+                <label for="username">Username：</label>
+                <input type="text" name="username" id="">
+              </div>
+              <div class="field">
+                <label for="password">Password：</label>
+                <input type="password" name="password" id="">
+              </div>
+              <input style="float: right;" class="ui inverted green button" type="submit" value="Login">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</style>
+
+<body style="background-color: rgb(245, 245, 245);">
+    <div style="min-height: 70px;" class="ui inverted fixed stackable red large menu">
+      <a class="item" href="/">Mysite</a>
+      {% if request.user.is_active %}
+      <div class="right menu">
+        <a class="item" >{{ request.user.username }}</a>
+        <a class="item" href="/logout/">Exit</a>
+    </div>
+      {% else %}
+      <div class="right menu">
+          <a class="item" href="/register/">Register</a>
+          <a class="item" href="/login/">Login</a>
+      </div>
+      {% endif %}
+          </div>
+        </div>
+    </div>
+</body>
+</html>

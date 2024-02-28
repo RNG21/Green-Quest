@@ -19,6 +19,7 @@ from django.urls import path
 from mysite import views
 from challenges import views as cviews
 from settings import views as sviews
+from login import views as lviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +29,8 @@ urlpatterns = [
     path("challenges/", cviews.render_map, name="challenges"),
     path("settings/", sviews.render_settings, name="settings"),
     path("settings/delete_account", sviews.delete_account, name="delete_account"),
+  
     #challenges or tasks what do we name it.
-    path('login/', views.login, name='login'),
+    path('login/', lviews.logins, name='login'),
+    path('register/', lviews.register, name='register')
 ]
