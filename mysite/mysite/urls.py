@@ -27,10 +27,13 @@ urlpatterns = [
     path('base/', views.base, name='base'),
     path('leaderboard/', views.leaderboard, name='leaderboard'),
     path("challenges/", cviews.render_map, name="challenges"),
+
     path("settings/", sviews.render_settings, name="settings"),
-    path("settings/delete_account", sviews.delete_account, name="delete_account"),
-  
-    #challenges or tasks what do we name it.
+    path("settings/delete_account/", sviews.delete_account, name="delete_account"),
+    path("settings/changePassword/", sviews.changePassword, name="changePassword"),
+    path("settings/changeUsername/", sviews.changeUsername, name="changeUsername"),
+    path("settings/logoutUser/", sviews.logoutUser, name="logoutUser"),
+
     path('login/', lviews.logins, name='login'),
     path('register/', lviews.register, name='register')
 ]

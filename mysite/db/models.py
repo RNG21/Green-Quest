@@ -7,7 +7,7 @@ class User(models.Model):
     role = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.Username}, {self.Role}"
+        return f"{self.username}, {self.role}"
 
 class TaskType(models.Model):
     typeID = models.AutoField(primary_key=True)
@@ -22,7 +22,7 @@ class Task(models.Model):
     taskType = models.author = models.ForeignKey(TaskType, on_delete=models.CASCADE)
     time = models.CharField(max_length=100)
     def __str__(self):
-        return f"{self.taskID}, {self.taskName}"
+        return f"{self.taskID}, {self.taskType}"
 
 class UserTask(models.Model):
     userName = models.ForeignKey(User, on_delete=models.CASCADE)

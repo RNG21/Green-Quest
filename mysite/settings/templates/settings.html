@@ -2,36 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/settings.css' %}">
 </head>
 <body>
 
 <div id="Welcome">
-    <h1>Welcome to your settings </h1>
+    <h1>Welcome to your settings {{ user.username }}</h1>
 </div>
 
-<div id="logout">
-    <form>
-        <input type="submit" value="Logout">
-    </form>
+<div id="Details">
+    <h4>Username: {{ user.username }}</h4>
+    <h4>Email: {{ user.email }}</h4>
 </div>
 
-<div id="changePassword">
-    <form>
-        <input type="password" placeholder="Old password">
-        <input type="password" placeholder="New password">
-        <input type="password" placeholder="Repeat new password">
-        <input type="submit" value="Change password">
-    </form>
+{% if messages %}
+    <div id="messages">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div id="container">
+    <div id="logout">
+        <form method="post" action={% url 'logoutUser' %}>
+            {% csrf_token %}
+            <label id="logout">
+                <input type="submit" value="Logout">
+            </label>
+        </form>
+    </div>
+
+    <div id="changeUsername">
+        <label id="text">Change your Username</label>
+        <form method="post" action={% url 'changeUsername' %}>
+            {% csrf_token %}
+            <input type="text" id="newUsername" name="newUsername" placeholder="New username"><br>
+            <input type="submit" value="Change username">
+        </form>
+    </div>
+
+    <div id="changePassword">
+        <label id="text">Change your Password</label>
+        <form method="post" action={% url 'changePassword' %}>
+            {% csrf_token %}
+            <input type="password" id="oldPassword" name="oldPassword" placeholder="Old password"><br>
+            <input type="password" id="newPassword" name="newPassword" placeholder="New password"><br>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password"><br>
+            <input type="submit" value="Change password">
+        </form>
+    </div>
+
+    <div id="deleteAccount">
+        <form method="post" action="{% url 'delete_account' %}">
+            {% csrf_token %}
+            <label for="password">Enter your password to delete your account:</label><br>
+            <input type="password" id="password" name="password" placeholder="Password"><br>
+            <input type="submit" value="Delete account">
+        </form>
+    </div>
 </div>
 
-<div id="deleteAccount">
-    <form method="post" action="{% url 'delete-account' %}">
-        <label id="password">
-            <input type="password" placeholder="Password">
-        </label>
-        <input type="submit" value="Delete account">
-    </form>
-</div>
 </body>
 </html>
