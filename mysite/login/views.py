@@ -3,9 +3,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.shortcuts import redirect
 
+
 # Create your views here.
 def index(request):
     return render(request,'index.html',locals())
+
 
 def logins(request):
     if request.method=='POST':
@@ -19,6 +21,7 @@ def logins(request):
             msg='Incorrect Password!'
             return render(request,'login.html',locals())
     return render(request,'login.html')
+
 
 def register(request):
     if request.method == 'POST':
@@ -39,6 +42,7 @@ def register(request):
         cuser.save()
         return redirect('/login/')
     return render(request,'register.html')
+
 
 def log_out(request):
     logout(request)

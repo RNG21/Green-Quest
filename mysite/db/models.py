@@ -6,7 +6,7 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     role = models.CharField(max_length=100)
     def __str__(self):
-        return f"{self.Username}, {self.Role}"
+        return f"{self.username}, {self.role}"
 
 class Location(models.Model):
     locationName = models.CharField(primary_key=True, max_length=100)
@@ -27,7 +27,7 @@ class Task(models.Model):
     taskType = models.author = models.ForeignKey(TaskType, on_delete=models.CASCADE)
     time = models.CharField(max_length=100)
     def __str__(self):
-        return f"{self.taskID}, {self.taskName}"
+        return f"{self.taskID}, {self.taskType}"
 
 class UserTask(models.Model):
     userName = models.ForeignKey(User, on_delete=models.CASCADE)
