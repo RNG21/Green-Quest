@@ -20,10 +20,11 @@ from mysite import views
 from challenges import views as cviews
 from settings import views as sviews
 from login import views as lviews
+from home import views as hviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('', hviews.home, name='home'),
     path('base/', views.base, name='base'),
     path('leaderboard/', views.leaderboard, name='leaderboard'),
     path("challenges/", cviews.render_map, name="challenges"),

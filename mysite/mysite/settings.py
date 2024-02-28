@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "challenges",
     'login',
     "db",
-    "settings"
+    "settings",
+    "home",
 ]
 
 MIDDLEWARE = [
