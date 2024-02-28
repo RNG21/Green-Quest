@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'mysite',
     "challenges",
     'login',
-    "db"
+    "db",
+    "leaderboard"
 ]
 
 MIDDLEWARE = [
