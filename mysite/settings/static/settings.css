@@ -6,7 +6,7 @@
     height: 100vh0;
 }
 
-#logout, #changeUsername, #changePassword, #deleteAccount{
+#logout, #changeUsername, #changePassword, #deleteAccount, #details{
     margin: 10px;
     padding: 20px;
     border: 1px solid #E6E6E6;
@@ -24,12 +24,6 @@
 }
 
 body {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: -1;
     color: #E6E6E6;
     background-color: #222;
-    overflow-y: auto;
 }

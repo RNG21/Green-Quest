@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 
+
 @login_required(login_url='/login')
 def render_settings(request):
     return render(request, 'settings.html')
@@ -68,11 +69,11 @@ def changeUsername(request):
     if request.method == 'POST':
         newUsername = request.POST.get("newUsername")
         if newUsername == '':
-            # send a message to the user that the new password is the same as the old password.
+            # password cant be empty
             messages.error(request, 'Username cannot be empty')
             return redirect('/settings')
         elif request.user.username == newUsername:
-            # send a message to the user that the new password is the same as the old password.
+            # send a message to the user that the new password is the same as the old password
             messages.error(request, 'New username cannot be the same as the old username')
             return redirect('/settings')
         elif User.objects.filter(username=newUsername).exists():
