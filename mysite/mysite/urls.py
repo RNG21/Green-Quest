@@ -28,7 +28,8 @@ urlpatterns = [
     path('leaderboard/', views.leaderboard, name='leaderboard'),
     path("challenges/", cviews.render_map, name="challenges"),
     path("settings/", sviews.render_settings, name="settings"),
-    path("settings/delete_account", sviews.delete_account, name="delete_account"),
+    path("settings/delete_account/", sviews.delete_account, name="delete_account"),
+    path("settings/logoutUser/", sviews.logoutUser, name="logoutUser"),
   
     #challenges or tasks what do we name it.
     path('login/', lviews.logins, name='login'),
