@@ -31,6 +31,7 @@ urlpatterns = [
     path("settings/", sviews.render_settings, name="settings"),
     path("settings/delete_account/", sviews.delete_account, name="delete_account"),
     path("settings/changePassword/", sviews.changePassword, name="changePassword"),
+    path("settings/changeUsername/", sviews.changeUsername, name="changeUsername"),
     path("settings/logoutUser/", sviews.logoutUser, name="logoutUser"),
 
     path('login/', lviews.logins, name='login'),

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
     {% load static %}
     <link rel="stylesheet" href="{% static '/settings.css' %}">
@@ -34,6 +35,16 @@
             </label>
         </form>
     </div>
+
+    <div id="changeUsername">
+        <label id="text">Change your Username</label>
+        <form method="post" action={% url 'changeUsername' %}>
+            {% csrf_token %}
+            <input type="text" id="newUsername" name="newUsername" placeholder="New username"><br>
+            <input type="submit" value="Change username">
+        </form>
+    </div>
+
     <div id="changePassword">
         <label id="text">Change your Password</label>
         <form method="post" action={% url 'changePassword' %}>
