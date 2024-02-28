@@ -1,15 +1,16 @@
 // Initialize and add the map
 let map;
 
-async function initMap(positions) {
+async function initMap(positions, center) {
     positions = JSON.parse(positions);
+    center = JSON.parse(center)
     // Request needed libraries.
     const { Map } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
     map = new Map(document.getElementById("map"), {
-        zoom: 4,
-        center: positions[0],
+        zoom: 16,
+        center: center,
         mapId: "campus"
     });
 
@@ -21,4 +22,4 @@ async function initMap(positions) {
     }
 }
 
-initMap(document.getElementById("positions").value);
+initMap(document.getElementById("positions").value, document.getElementById("center").value);

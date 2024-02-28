@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "challenges",
     'login',
     "db",
-    "leaderboard"
+    "home",
+    "leaderboard",
 ]
 
 MIDDLEWARE = [
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'challenges/static')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,3 +131,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MAPS_API_KEY = "AIzaSyA8EqB5JfiCCHKzDpT7kbA3AaOwL_Fs-so"
+MAPS_CENTER_COORDINATES = { "lat": 50.735844, "lng": -3.533667 }

@@ -5,15 +5,20 @@ class User(models.Model):
     password = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     role = models.CharField(max_length=100)
-
     def __str__(self):
         return f"{self.username}, {self.role}"
+
+class Location(models.Model):
+    locationName = models.CharField(primary_key=True, max_length=100)
+    description = models.CharField(max_length=100)
+    longitude = models.FloatField()
+    latitude = models.FloatField()
 
 class TaskType(models.Model):
     typeID = models.AutoField(primary_key=True)
     taskName = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.typeID}, {self.taskName}"
 
@@ -30,4 +35,3 @@ class UserTask(models.Model):
     time = models.CharField(max_length=100)
     def __str__(self):
         return f"{self.userName}, {self.taskID}"
-# Create your models here.
