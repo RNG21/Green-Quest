@@ -129,3 +129,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MAPS_API_KEY = "AIzaSyA8EqB5JfiCCHKzDpT7kbA3AaOwL_Fs-so"
+MAPS_CENTER_COORDINATES = { "lat": 50.735844, "lng": -3.533667 }
