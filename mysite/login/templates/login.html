@@ -9,6 +9,9 @@
   <title>Login</title>
 </head>
 
+<body style="background-color: rgb(245, 245, 245);">
+  {% include 'mysite/base.html' %}
+
   <div style="width: 70%; margin: 0 auto; padding-top: 20em;padding-bottom: 20em;">
     <div class="ui stackable centered column grid">
       <div class="centered row">
@@ -32,24 +35,6 @@
       </div>
     </div>
   </div>
-</style>
 
-<body style="background-color: rgb(245, 245, 245);">
-    <div style="min-height: 70px;" class="ui inverted fixed stackable red large menu">
-      <a class="item" href="/">Mysite</a>
-      {% if request.user.is_active %}
-      <div class="right menu">
-        <a class="item" >{{ request.user.username }}</a>
-        <a class="item" href="/logout/">Exit</a>
-    </div>
-      {% else %}
-      <div class="right menu">
-          <a class="item" href="/register/">Register</a>
-          <a class="item" href="/login/">Login</a>
-      </div>
-      {% endif %}
-          </div>
-        </div>
-    </div>
 </body>
 </html>
