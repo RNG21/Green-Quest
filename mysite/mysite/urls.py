@@ -18,14 +18,23 @@ from django.contrib import admin
 from django.urls import path
 from mysite import views
 from challenges import views as cviews
+from settings import views as sviews
+from login import views as lviews
+from home import views as hviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('', hviews.home, name='home'),
     path('base/', views.base, name='base'),
-    path('settings/', views.settings, name='settings'),
     path('leaderboard/', views.leaderboard, name='leaderboard'),
-    path("challenges/", cviews.render_map,name='challenges'),
-    #challenges or tasks what do we name it.
-    path('login/', views.login, name='login'),
+    path("challenges/", cviews.render_map, name="challenges"),
+
+    path("settings/", sviews.render_settings, name="settings"),
+    path("settings/delete_account/", sviews.delete_account, name="delete_account"),
+    path("settings/changePassword/", sviews.changePassword, name="changePassword"),
+    path("settings/changeUsername/", sviews.changeUsername, name="changeUsername"),
+    path("settings/logoutUser/", sviews.logoutUser, name="logoutUser"),
+
+    path('login/', lviews.logins, name='login'),
+    path('register/', lviews.register, name='register')
 ]
