@@ -3,7 +3,12 @@ from django.http import HttpRequest
 from django.conf import settings
 import json
 
-# Create your views here.
+def challenge_page(request):
+    context = {
+        "menu_items": [1,2,3,4]
+    }
+    return render(request, "sidebar.html", context=context)
+
 def render_map(request: HttpRequest):
     context = {
         "API_KEY": settings.MAPS_API_KEY,

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            width: 500px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            padding: 100px;
+            border-bottom: 1px solid #555;
+        }
+
+        .sidebar ul li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <ul>
+        {% for item in menu_items %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
+</html>
