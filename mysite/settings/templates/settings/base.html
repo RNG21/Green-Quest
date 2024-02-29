@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'login/login.css' %}">
+    <title>Login</title>
+</head>
+
+<body>
+{% include 'mysite/base.html' %}
+<div id="Welcome">
+    <h1>Welcome to your settings {{ user.username }}</h1>
+</div>
+<div id="Details">
+    <h4>Username: {{ user.username }}</h4>
+    <h4>Email: {{ user.email }}</h4>
+</div>
+
+<div class="ui stackable centered column grid">
+    <div class="centered row">
+
+        <div class="login-form ui segment">
+
+            <div class="ui form">
+            {% if messages %}
+                <div id="messages">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {#            <div id="container">#}
+                <div id="logout" class="field">
+                    <form class="ui form" method="post" action={% url 'logoutUser' %}>
+                        {% csrf_token %}
+                        <label id="logout">
+                            <input type="submit" value="Logout" class="ui inverted green button">
+                        </label>
+                    </form>
+                </div>
+
+                <div id="changeUsername" class="field">
+                    <label id="text">Change your Username</label>
+                    <form method="post" action={% url 'changeUsername' %}>
+                        {% csrf_token %}
+                        <input type="text" id="newUsername" name="newUsername" placeholder="New username"><br>
+                        <input type="submit" value="Change username" class="ui inverted green button">
+                    </form>
+                </div>
+
+                <div id="changePassword" class="field">
+                    <label id="text">Change your Password</label>
+                    <form method="post" action={% url 'changePassword' %}>
+                        {% csrf_token %}
+                        <input type="password" id="oldPassword" name="oldPassword" placeholder="Old password"><br>
+                        <input type="password" id="newPassword" name="newPassword" placeholder="New password"><br>
+                        <input type="password" id="confirmPassword" name="confirmPassword"
+                               placeholder="Confirm new password"><br>
+                        <input type="submit" value="Change password" class="ui inverted green button">
+                    </form>
+                </div>
+
+                <div id="deleteAccount" class="field">
+                    <form method="post" action=cc>
+                        {% csrf_token %}
+                        <label for="password">Enter your password to delete your account:</label><br>
+                        <input type="password" id="password" name="password" placeholder="Password"><br>
+                        <input type="submit" value="Delete account" class="ui inverted green button">
+                    </form>
+                </div>
+            {#            </div>#}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

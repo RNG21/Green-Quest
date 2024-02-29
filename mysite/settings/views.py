@@ -7,8 +7,11 @@ from django.contrib.auth.models import User
 
 @login_required(login_url='/login')
 def render_settings(request):
-    return render(request, 'settings.html')
+    return render(request, 'settings/base.html')
 
+# @login_required(login_url='/login')
+# def render_settings2(request):
+#     return render(request, 'settings/base.html')
 
 @login_required(login_url='/login')
 def delete_account(request):
