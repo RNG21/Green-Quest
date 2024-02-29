@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'challenges/sidebar.css' %}" />
 
         <script type="module" src="{% static 'challenges/map.js' %}"></script>
+        <script type="module" src="{% static 'challenges/sidebar.js' %}"></script>
         <input type="hidden" id="positions" value="{{ positions }}">
         <input type="hidden" id="center" value="{{ center }}">
     </head>
@@ -15,11 +16,37 @@
         <div id="map"></div>
         
         <div class="sidebar">
-            <ul>
-                {% for item in menu_items %}
-                    <li>{{ item }}</li>
-                {% endfor %}
-            </ul>
+            {% if menu_items %}
+                <ul>
+                    {% for item in menu_items %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            {% elif is_admin %}
+                <div id="no-challenges">
+                    There are no active challenges, click the button below to add one<br>
+                    <button id="add-challenge-button">+</button>
+                </div>
+            {% endif %}
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <div class="center">
+        <div id="add-challenge-form" class="hideform">
+            <button id="close" style="float: right;">X</button>
+            <form>
+                Task Name:<br>
+                <input type="text" name="task_name">
+                <br>
+                Task description:<br>
+                <input type="text" name="task_des">
+                <br>
+                Location:<br>
+                <input type="text" name="location">
+                <br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
         </div>
 
         {% include 'mysite/base.html' %}
