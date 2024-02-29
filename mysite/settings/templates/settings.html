@@ -9,6 +9,8 @@
 </head>
 <body>
 
+{% include 'mysite/base.html' %}
+
 <div id="Welcome">
     <h1>Welcome to your settings {{ user.username }}</h1>
 </div>
@@ -57,7 +59,7 @@
     </div>
 
     <div id="deleteAccount">
-        <form method="post" action="{% url 'delete_account' %}">
+        <form method="post" action=cc>
             {% csrf_token %}
             <label for="password">Enter your password to delete your account:</label><br>
             <input type="password" id="password" name="password" placeholder="Password"><br>
