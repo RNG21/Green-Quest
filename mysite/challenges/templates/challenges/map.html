@@ -17,11 +17,21 @@
         
         <div class="sidebar">
             {% if menu_items %}
-                <ul>
-                    {% for item in menu_items %}
-                        <li>{{ item }}</li>
-                    {% endfor %}
-                </ul>
+            <ul>
+                {% for task in menu_items %}
+                    <li>
+                        <p class="title">{{ task.taskType.taskName }}</p>
+                        <p class="description">{{ task.taskType.description }}</p>
+                        <div class="column">
+                            <div class="left">
+                                Location:<br>
+                                {{ task.taskType.location.locationName }}
+                            </div>
+                            <div class="right"><button>Completed</button></div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
             {% elif is_admin %}
                 <div id="no-challenges">
                     There are no active challenges, click the button below to add one<br>
