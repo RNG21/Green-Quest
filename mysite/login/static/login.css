@@ -1,0 +1,26 @@
+body {
+    background-color: rgb(245, 245, 245);
+}
+  
+.login-container {
+    width: 70%;
+    margin: 0 auto;
+    padding-top: 20em;
+    padding-bottom: 20em;
+    position: absolute;
+    z-index: 2;
+}
+  
+.login-form {
+    padding-bottom: 5em;
+    background-color: rgba(245, 245, 245, 0.5);
+}
+  
+.login-button {
+    float: right;
+}
+
+#to_register {
+    float: right;
+}
+  
