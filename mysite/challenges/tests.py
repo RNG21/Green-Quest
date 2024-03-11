@@ -11,12 +11,12 @@ class RenderMapTestCase(TestCase):
         self.client = Client()
 
     def test_render_map_with_tasks(self):
-        self.client.cookies = {"location": "Forums", "task_name": "Task 1", "task_des": "Description 1"}
-
-        response = self.client.get("/challenges/map.html")
+        self.client.cookies['location'] = 'Forums'
+        self.client.cookies['task_name'] = 'Task 1'
+        self.client.cookies['task_des'] = 'Description 1'
+        response = self.client.get("/challenges/")
 
         self.assertEqual(response.status_code, 200)
-       # self.assertEqual(response.template_name, "challenges/map.html")
         self.assertEqual(response.context["menu_items"]["name"], "Task 1")
         self.assertEqual(response.context["menu_items"]["description"], "Description 1")
         self.assertEqual(response.context["menu_items"]["location"], "Forums")
@@ -30,7 +30,6 @@ class RenderMapTestCase(TestCase):
         response = self.client.get("/challenges/")
 
         self.assertEqual(response.status_code, 200)
-        #self.assertEqual(response.template_name, "challenges/map.html")
         self.assertEqual(response.context["menu_items"], {})
         self.assertEqual(response.context["API_KEY"], settings.MAPS_API_KEY)
         self.assertEqual(response.context["positions"], json.dumps([]))
