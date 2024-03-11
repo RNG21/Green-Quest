@@ -1,12 +1,5 @@
 from django.db import models
-
-class User(models.Model):
-    username = models.CharField(max_length=100, primary_key=True)
-    password = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
-    role = models.CharField(max_length=100)
-    def __str__(self):
-        return f"{self.username}, {self.role}"
+from django.contrib.auth.models import User
 
 class Location(models.Model):
     locationName = models.CharField(primary_key=True, max_length=100)
