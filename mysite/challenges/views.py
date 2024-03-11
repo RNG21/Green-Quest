@@ -40,6 +40,7 @@ def render_map(request: HttpRequest, tasks: Iterable[Task]=...):
         ]
 
     else:
+        tasks = {}
         positions = []
 
     context = {
