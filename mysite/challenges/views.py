@@ -8,6 +8,12 @@ from django.conf import settings
 from leaderboard.models import LeaderboardEntry
 from db.models import Task, User, TaskType, Location
 
+def task_view(request, task_id):
+    # method used to send task data to html
+    task = Task.objects.get(id=task_id)  # 获取特定任务
+    context = {'task': task}
+    return render(request, 'myapp/Task_chinese.html', context)
+
 def completed_challenge(request: HttpRequest) -> None:
     username = request.POST["username"]
     score = request.POST["score"]

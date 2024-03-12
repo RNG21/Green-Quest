@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Location Based Task</title>
+<script>
+// 获取用户位置信息
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(comparePosition, showError);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+// 比较用户位置与任务指定位置
+function comparePosition(position) {
+  const userLat = position.coords.latitude;
+  const userLon = position.coords.longitude;
+
+// 从 Django 模板变量获取任务的坐标
+  const taskLat = {{ task.latitude }};
+  const taskLon = {{ task.longitude }};
+  const tolerance = 0.01; // 容忍度，可根据需要调整
+
+  // 检查用户位置是否在任务给定位置的容忍度范围内
+  if (Math.abs(userLat - taskLat) <= tolerance && Math.abs(userLon - taskLon) <= tolerance) {
+    alert("任务成功！");
+    // 这里执行任务成功的逻辑
+  } else {
+    alert("你不在指定位置，任务失败。");
+    // 这里执行任务失败的逻辑
+  }
+}
+
+// 错误处理
+function showError(error) {
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      alert("User denied the request for Geolocation.");
+      break;
+    case error.POSITION_UNAVAILABLE:
+      alert("Location information is unavailable.");
+      break;
+    case error.TIMEOUT:
+      alert("The request to get user location timed out.");
+      break;
+    case error.UNKNOWN_ERROR:
+      alert("An unknown error occurred.");
+      break;
+  }
+}
+</script>
+</head>
+<body>
+
+<h2>任务：到达指定位置</h2>
+<button onclick="getLocation()">检查我的位置</button>
+
+</body>
+</html>
