@@ -1,12 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class User(models.Model):
-    username = models.CharField(max_length=100, primary_key=True)
-    password = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
-    role = models.CharField(max_length=100)
-    def __str__(self):
-        return f"{self.username}, {self.role}"
 
 class Location(models.Model):
     locationName = models.CharField(primary_key=True, max_length=100)
@@ -23,11 +17,10 @@ class TaskType(models.Model):
         return f"{self.typeID}, {self.taskName}"
 
 class Task(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    latitude = models.FloatField()
-    longitude = models.FloatField()
-
+    title = models.CharField(max_length=255, default='Untitled Task')
+    latitude = models.FloatField(default=1)
+    longitude = models.FloatField(default=1)
+    description = models.TextField(default='Default description')
     def __str__(self):
         return self.title
     # taskID = models.AutoField(primary_key=True)
@@ -43,7 +36,7 @@ class UserTask(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
     completion_date = models.DateTimeField(null=True, blank=True)
-
+    description = models.TextField(default='Default description')
     def __str__(self):
         return f'{self.user.username} - {self.task.title}'
     # userName = models.ForeignKey(User, on_delete=models.CASCADE)
