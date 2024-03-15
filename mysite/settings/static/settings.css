@@ -6,7 +6,7 @@
     height: 100vh0;
 }
 
-#logout, #changeUsername, #changePassword, #deleteAccount, #details{
+#logout, #changeUsername, #changePassword, #deleteAccount, #details, #link{
     margin: 10px;
     padding: 20px;
     border: 1px solid #E6E6E6;

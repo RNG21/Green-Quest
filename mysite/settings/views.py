@@ -75,18 +75,18 @@ def changeUsername(request):
     if request.method == 'POST':
         newUsername = request.POST.get("newUsername")
         if newUsername == '':
-            # password cant be empty
+            # username cant be empty
             messages.error(request, 'Username cannot be empty')
             return redirect('/settings')
         elif request.user.username == newUsername:
-            # send a message to the user that the new password is the same as the old password
+            # send a message to the user that the new username is the same as the old username
             messages.error(request, 'New username cannot be the same as the old username')
             return redirect('/settings')
         elif User.objects.filter(username=newUsername).exists():
             messages.error(request, 'Username already exists. Please Choose a different one.')
             return redirect('/settings')
         else:
-            # change password and logout the user
+            # change username and logout the user
             request.user.username = newUsername
             request.user.save()
             logout(request)

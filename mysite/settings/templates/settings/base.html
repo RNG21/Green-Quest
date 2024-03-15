@@ -8,16 +8,30 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'login/login.css' %}">
     <title>Login</title>
+    <style>
+        #link{
+            left: 50%;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+        #Welcome, #Details{
+            justify-content: center;
+            margin: 10px;
+            left: 50%;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
 {% include 'mysite/base.html' %}
 <div id="Welcome">
-    <h1>Welcome to your settings {{ user.username }}</h1>
+    <h1>Welcome to your settings "{{ user.username }}"</h1>
 </div>
 <div id="Details">
-    <h4>Username: {{ user.username }}</h4>
-    <h4>Email: {{ user.email }}</h4>
+    <p>Username: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
 </div>
 
 <div class="ui stackable centered column grid">
@@ -78,7 +92,8 @@
         </div>
     </div>
 </div>
-
+<br>
+<a id="link" class="ui inverted green button" href="{% url 'userProtection' %}">User protection</a>
 
 </body>
 </html>
