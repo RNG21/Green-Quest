@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User protection</title>
+    <style>
+        .container{
+    background-color: rgba(144, 238, 144, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    height: 60%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.title{
+    font-size: 4em;
+    font-weight: bolder;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.content{
+    font-size: 1.5em;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+    </style>
+</head>
+<body>
+
+{% include 'mysite/base.html' %}
+
+<div class="container">
+    <div id="title">
+        <h1>User protection</h1>
+    </div>
+
+    <div id="content">
+        <p>Disclaimer:<br></p>
+        <p>By playing the Sustainability Challenge, you acknowledge and agree that:<br></p>
+        <p>1. You are solely responsible for your safety whilst playing the game.<br></p>
+        <p>2. You should be fully aware of your surroundings and be cautious, especially when walking near traffic or in unfamiliar places<br></p>
+        <p>3. We are not liable for any injuries or accidents that may happen whilst playing.<br></p>
+        <p>4. It is your responsibility to follow all campus guidelines while playing the game, especially trespassing<br></p>
+        <p>5. We do not endorse reckless behaviour whilst playing the game.<br></p>
+        <p> Stay safe and have fun!<br></p>
+    </div>
+</div>
+</body>
+</html>

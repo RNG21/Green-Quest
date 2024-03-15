@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "db",
     "home",
     "leaderboard",
+    "userProtection",
 ]
 
 MIDDLEWARE = [

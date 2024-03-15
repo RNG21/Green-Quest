@@ -21,6 +21,7 @@ from challenges import views as cviews
 from settings import views as sviews
 from login import views as lviews
 from home import views as hviews
+from userProtection import views as upviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,5 +37,6 @@ urlpatterns = [
     path("settings/logoutUser/", sviews.logoutUser, name="logoutUser"),
 
     path('login/', lviews.logins, name='login'),
-    path('register/', lviews.register, name='register')
+    path('register/', lviews.register, name='register'),
+    path('userProtection/', upviews.render_userProtection, name='userProtection')
 ]

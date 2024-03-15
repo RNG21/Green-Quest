@@ -18,6 +18,9 @@ def delete_account(request):
     if request.method == 'POST':
         password = request.POST.get('password')
         if request.user.check_password(password):
+            # TODO: delete user tasks
+
+
             # delete account.
             request.user.delete()
             # logout the user
