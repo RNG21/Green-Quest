@@ -21,5 +21,6 @@ async function initMap(positions, center) {
         });
     }
 }
-
-initMap(document.getElementById("positions").value, document.getElementById("center").value);
+document.addEventListener("DOMContentLoaded", function() {
+    initMap(document.getElementById("positions").value, document.getElementById("center").value);
+});

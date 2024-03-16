@@ -44,5 +44,3 @@ def render_map(request: HttpRequest, tasks: Iterable[Task]=...):
         "is_admin": True
     }
     return render(request, "challenges/map.html", context=context)
-
-    
