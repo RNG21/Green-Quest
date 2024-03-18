@@ -1,12 +1,22 @@
 from django.contrib import admin
-from .models import Task, UserTask
+from .models import Task, CompleteTask, TaskType, Location
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('title', 'latitude', 'longitude')
+    list_display = ('title', 'taskType', 'description', 'location')
 
-@admin.register(UserTask)
-class UserTaskAdmin(admin.ModelAdmin):
-    list_display = ('user', 'task', 'completed', 'completion_date')
-    list_filter = ('completed', 'user')
+@admin.register(CompleteTask)
+class CompleteTaskAdmin(admin.ModelAdmin):
+    list_display = ('user', 'task', 'completion_date', 'description', 
+                    'image', 'latitude', 'longtitude')
+
+@admin.register(TaskType)
+class TaskTypeAdmin(admin.ModelAdmin):
+    list_display = ('taskName', 'description')
+
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ('locationName', 'description',
+                     'longtitude','latitude')
+
 # Register your models here.
