@@ -32,8 +32,8 @@ def render_map(request: HttpRequest, tasks: Iterable[Task]=...):
     tasks = Task.objects.all()
     positions = [
         {
-            "lat": task.taskType.location.longitude,
-            "lng": task.taskType.location.latitude
+            "lat": task.location.longtitude,
+            "lng": task.location.latitude
         } for task in tasks
     ]
     context = {
