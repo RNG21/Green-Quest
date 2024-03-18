@@ -31,6 +31,7 @@ class CompleteTask(models.Model):
     image = models.ImageField(upload_to='images/')
     latitude = models.FloatField(default=1)
     longtitude = models.FloatField(default=1)
+    score = models.IntegerField(default=0)
     def __str__(self):
         return f'{self.user.username} - {self.task.title}'
 
