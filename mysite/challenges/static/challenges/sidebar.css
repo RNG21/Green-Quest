@@ -21,17 +21,16 @@ body {
 
 .sidebar ul {
     list-style-type: none;
-    padding: 0;
+    padding: 5;
     margin: 0;
 }
 
-.sidebar ul li {
-    padding: 100px;
-    border-bottom: 1px solid #555;
+.sidebar li {
+    padding: 10px;
 }
 
-.sidebar ul li:last-child {
-    border-bottom: none;
+.sidebar li:hover{
+    background-color: #555;
 }
 
 .sidebar ul li a {
@@ -73,3 +72,21 @@ body {
 .hideform {
     display: none;
 }
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.column {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.left, .right {
+    flex: 1;
+    padding: 10px;
+}
+

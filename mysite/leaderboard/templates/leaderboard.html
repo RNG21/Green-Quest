@@ -64,13 +64,11 @@
                 </tr>
             </thead>
             <tbody>
-                {% for entry in entries %}
                 <tr>
-                    <td class="rank">{{ forloop.counter }}</td>
-                    <td class="user">{{ entry.user.username }}</td>
-                    <td class="score">{{ entry.score }}</td>
+                    <td class="rank">1</td>
+                    <td class="user">{{ user.username }}</td>
+                    <td class="score">1</td>
                 </tr>
-                {% endfor %}
             </tbody>
         </table>
     </div>
