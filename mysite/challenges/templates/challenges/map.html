@@ -6,6 +6,7 @@
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'challenges/map.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'challenges/sidebar.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'challenges/loader.css' %}" />
 
         <script id="map-script" src="{% static 'challenges/map.js' %}"
         data-positions="{{ positions }}"
@@ -15,6 +16,7 @@
         <script src="{% static 'challenges/locations.js' %}"></script>
     </head>
     <body>
+        
         <div id="map"></div>
         
         <div class="sidebar">
@@ -44,8 +46,10 @@
         
         <div class="center">
         <div id="submit-challenge-form" class="hideform">
+            <input type="hidden" id="task-lat" value="">
+            <input type="hidden" id="task-lng" value="">
             <button id="close" style="float: right;" onclick="hide_submit()">X</button>
-            <form method="POST">
+            <form id="form" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="task_id" id="task-id" value="">
                 <input type="hidden" name="lat" id="usr-lat" value="">
@@ -58,7 +62,7 @@
                 <p id="task-loc" class="subtitle">Add image:<br>
                 <input type="file" name="image" accept="image/*"></p>
 
-                <input type="submit" value="Submit">
+                <button type="button" onclick="submit_form()">Submit</button>
             </form>
         </div>
         </div>

@@ -6,7 +6,6 @@ from django.shortcuts import render
 from django.http import HttpRequest
 from django.conf import settings
 
-from leaderboard.models import LeaderboardEntry
 from db.models import Task, User, TaskType, Location, CompleteTask
 
 def task_view(request, task_id):
