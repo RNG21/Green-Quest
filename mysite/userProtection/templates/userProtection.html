@@ -15,22 +15,47 @@
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
-    justify-content: center;
-    align-items: center;
     color: black;
 }
 
-.title{
-    font-size: 4em;
+#title{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    text-align: center;
+    height: auto;
+    box-sizing: border-box;
+    padding: 10px;
+
+
+    font-size: 30px;
     font-weight: bolder;
     font-family: "Lucida Console", "Courier New", monospace;
+
 }
 
-.content{
-    font-size: 1.5em;
+#content{
+    padding: 10px;
+    font-size: 15px;
     font-family: "Lucida Console", "Courier New", monospace;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+}
+.button{
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 </head>
 <body>
 
@@ -38,7 +63,7 @@
 
 <div class="container">
     <div id="title">
-        <h1>User protection</h1>
+        <p>User protection</p>
     </div>
 
     <div id="content">
@@ -52,5 +77,10 @@
         <p> Stay safe and have fun!<br></p>
     </div>
 </div>
+
+<div id="button">
+    <a href="{% url 'settings' %}"><button class="ui inverted green button">Delete Account</button></a>
+</div>
+
 </body>
 </html>
