@@ -7,10 +7,12 @@
         <link rel="stylesheet" type="text/css" href="{% static 'challenges/map.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'challenges/sidebar.css' %}" />
 
-
-        <script src="{% static 'challenges/map.js' %}"></script>
-        <input type="hidden" id="positions" value="{{ positions }}">
-        <input type="hidden" id="center" value="{{ center }}">
+        <script id="map-script" src="{% static 'challenges/map.js' %}"
+        data-positions="{{ positions }}"
+        data-map_center="{{ center }}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="{% static 'challenges/sidebar.js' %}"></script>
+        <script src="{% static 'challenges/locations.js' %}"></script>
     </head>
     <body>
         <div id="map"></div>
@@ -19,31 +21,43 @@
             {% if menu_items %}
                 <ul>
                     {% for item in menu_items %}
-                        <li>{{ item }}</li>
+                        <li>
+                            <span class="title">{{ item }}</span><br>
+                            <span class="description">{{ item.description }}</span><br><br>
+                            <div class="column">
+                                <div class="left">
+                                    Location:<br>
+                                    {{ item.location.locationName }}
+                                </div>
+                                <div class="right"><button onclick="show_submit('{{ item }}', '{{ item.location }}', '{{ item.id }}', '{{ item.location.latitude }}', '{{ item.location.longtitude }}')">Completed</button></div>
+                            </div>
+                        </li>
                     {% endfor %}
                 </ul>
-            {% elif is_admin %}
+            {% else %}
                 <div id="no-challenges">
-                    There are no active challenges, click the button below to add one<br>
-                    <button id="add-challenge-button">+</button>
+                    There are no active challenges<br>
                 </div>
             {% endif %}
         </div>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        
+        
         <div class="center">
-        <div id="add-challenge-form" class="hideform">
-            <button id="close" style="float: right;">X</button>
-            <form>
-                Task Name:<br>
-                <input type="text" name="task_name">
+        <div id="submit-challenge-form" class="hideform">
+            <button id="close" style="float: right;" onclick="hide_submit()">X</button>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="task_id" id="task-id" value="">
+                <input type="hidden" name="lat" id="usr-lat" value="">
+                <input type="hidden" name="lng" id="usr-lng" value="">
+
+                <span id="task-name" class="title"></span>
                 <br>
-                Task description:<br>
-                <input type="text" name="task_des">
+                <span id="task-loc" class="subtitle"></span>
                 <br>
-                Location:<br>
-                <input type="text" name="location">
-                <br><br>
+                <p id="task-loc" class="subtitle">Add image:<br>
+                <input type="file" name="image" accept="image/*"></p>
+
                 <input type="submit" value="Submit">
             </form>
         </div>
@@ -51,9 +65,7 @@
 
         {% include 'mysite/base.html' %}
         
-        
         <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
             ({key: "{{ API_KEY }}", v: "weekly"});</script>
-        <script src="{% static 'challenges/sidebar.js' %}"></script>
     </body>
 </html>

@@ -2,8 +2,6 @@
 let map;
 
 async function initMap(positions, center) {
-    positions = JSON.parse(positions);
-    center = JSON.parse(center)
     // Request needed libraries.
     const { Map } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
@@ -21,6 +19,13 @@ async function initMap(positions, center) {
         });
     }
 }
+
 document.addEventListener("DOMContentLoaded", function() {
-    initMap(document.getElementById("positions").value, document.getElementById("center").value);
+    // get dataset from django template render
+    var dataset = document.getElementById("map-script").dataset;
+
+    // init map
+    var positions = JSON.parse(dataset.positions);
+    var center = JSON.parse(dataset.map_center);
+    initMap(positions, center);
 });

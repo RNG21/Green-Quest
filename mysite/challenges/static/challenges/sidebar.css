@@ -8,7 +8,7 @@ body {
 .sidebar {
     background-color: #333;
     color: #fff;
-    width: 500px;
+    width: 200px;
     height: 100%;
     position: absolute;
     top: 0;
@@ -26,7 +26,7 @@ body {
 }
 
 .sidebar ul li {
-    padding: 100px;
+    padding: 10px;
     border-bottom: 1px solid #555;
 }
 
@@ -58,10 +58,8 @@ body {
     align-items: center;
 }
 
-#add-challenge-form {
+#submit-challenge-form {
     margin: auto;
-    width: 40%;
-    height: 40%;
     padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     position: absolute;
@@ -72,4 +70,16 @@ body {
 
 .hideform {
     display: none;
+}
+
+.title {
+    font-size: 22px;
+}
+
+.subtitle {
+    font-size: 18px;
+}
+
+.description {
+    font-size: 14px;
 }

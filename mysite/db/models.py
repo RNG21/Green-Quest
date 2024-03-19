@@ -6,6 +6,8 @@ class Location(models.Model):
     description = models.CharField(max_length=100)
     longtitude = models.FloatField()
     latitude = models.FloatField()
+    def __str__(self):
+        return f"{self.locationName}"
 
 class TaskType(models.Model):
     taskName = models.CharField(max_length=100, default = 'recycle')
