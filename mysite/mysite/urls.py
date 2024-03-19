@@ -16,11 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from mysite import views
 from challenges import views as cviews
 from settings import views as sviews
 from login import views as lviews
 from home import views as hviews
+from .views import gallery_view, like_image
 from userProtection import views as upviews
 
 urlpatterns = [
@@ -38,5 +41,10 @@ urlpatterns = [
 
     path('login/', lviews.logins, name='login'),
     path('register/', lviews.register, name='register'),
-    path('userProtection/', upviews.render_userProtection, name='userProtection')
+    path('userProtection/', upviews.render_userProtection, name='userProtection'),
+
+    path('gallery/',gallery_view, name='gallery'),
+    path('like-image/',like_image,name='like-image')
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
