@@ -11,43 +11,23 @@
         <script src="{% static 'challenges/map.js' %}"></script>
         <input type="hidden" id="positions" value="{{ positions }}">
         <input type="hidden" id="center" value="{{ center }}">
-
-        <script>
-            function setCookies() {
-                var taskName = document.getElementsByName("task_name")[0].value;
-                var taskDescription = document.getElementsByName("task_des")[0].value;
-                var location = document.getElementsByName("location")[0].value;
-    
-                // Set cookies
-                document.cookie = "task_name=" + encodeURIComponent(taskName);
-                document.cookie = "task_des=" + encodeURIComponent(taskDescription);
-                document.cookie = "location=" + encodeURIComponent(location);
-            }
-
-            function add_point() {
-                document.cookie = "point=1; path=/";
-            }
-        </script>
-
     </head>
     <body>
+
         <div id="map"></div>
-        
+        <div id="tutorial-popup" class="hideform">
+            <button id="close-tutorial" style="float: right;">X</button>
+            <h2>How to Play:</h2>
+            <p>Visit locations around Campus to find tasks to do, you can see the tasks on the left. Once you complete a task upload a photo of it being completed. Smile! These photos could appear in the gallery. Earn points completing tasks and compete against others to be on top of the leaderboard!</p>
+            <button id="dont-show-again">Okay, Don't show again</button>
+        </div>
         <div class="sidebar">
             {% if menu_items %}
-            <ul>
-                <li>
-                    <p class="title">{{ menu_items.name }}</p>
-                    <p class="description">{{ menu_items.description }}</p>
-                    <div class="column">
-                        <div class="left">
-                            Location:<br>
-                            {{ menu_items.location }}
-                        </div>
-                        <div class="right"><button onclick="add_point()">Completed</button></div>
-                    </div>
-                </li>
-            </ul>
+                <ul>
+                    {% for item in menu_items %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
             {% elif is_admin %}
                 <div id="no-challenges">
                     There are no active challenges, click the button below to add one<br>
@@ -68,14 +48,9 @@
                 <input type="text" name="task_des">
                 <br>
                 Location:<br>
-                <select name="location" id="cars">
-                    <option value="volvo">Forums</option>
-                    <option value="saab">Newman</option>
-                    <option value="mercedes">XFI</option>
-                    <option value="audi">Harrison</option>
-                  </select>
+                <input type="text" name="location">
                 <br><br>
-                <input type="submit" value="Submit" onclick="setCookies()">
+                <input type="submit" value="Submit">
             </form>
         </div>
         </div>

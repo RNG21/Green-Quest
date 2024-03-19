@@ -3,6 +3,10 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .sidebar {
@@ -21,16 +25,17 @@ body {
 
 .sidebar ul {
     list-style-type: none;
-    padding: 5;
+    padding: 0;
     margin: 0;
 }
 
-.sidebar li {
-    padding: 10px;
+.sidebar ul li {
+    padding: 100px;
+    border-bottom: 1px solid #555;
 }
 
-.sidebar li:hover{
-    background-color: #555;
+.sidebar ul li:last-child {
+    border-bottom: none;
 }
 
 .sidebar ul li a {
@@ -73,20 +78,17 @@ body {
     display: none;
 }
 
-.title {
-    font-size: 24px;
-    font-weight: bold;
-}
+#tutorial-popup {
+    margin: auto;
+    width: 60%;
+    height: 60%;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: absolute;
+    z-index: 4;
+    background-color: rgba(144, 238, 144, 0.9);
+    color: #333;
+    border-radius: 15px;
+    text-align: center;
 
-.column {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
 }
-
-.left, .right {
-    flex: 1;
-    padding: 10px;
-}
-
