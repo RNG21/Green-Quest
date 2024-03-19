@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Task, CompleteTask, TaskType, Location
+from .models import Task, CompleteTask, TaskType, Location, Like
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
@@ -8,7 +8,7 @@ class TaskAdmin(admin.ModelAdmin):
 @admin.register(CompleteTask)
 class CompleteTaskAdmin(admin.ModelAdmin):
     list_display = ('user', 'task', 'completion_date', 'description', 
-                    'image', 'latitude', 'longtitude')
+                    'image', 'latitude', 'longtitude','score')
 
 @admin.register(TaskType)
 class TaskTypeAdmin(admin.ModelAdmin):
@@ -18,5 +18,10 @@ class TaskTypeAdmin(admin.ModelAdmin):
 class LocationAdmin(admin.ModelAdmin):
     list_display = ('locationName', 'description',
                      'longtitude','latitude')
+
+@admin.register(Like)
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ('CompleteTask', 'user',
+                    'created')
 
 # Register your models here.

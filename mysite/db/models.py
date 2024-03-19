@@ -34,5 +34,16 @@ class CompleteTask(models.Model):
     score = models.IntegerField(default=0)
     def __str__(self):
         return f'{self.user.username} - {self.task.title}'
+    def total_likes(self):
+        return self.like.count()
+
+class Like(models.Model):
+    CompleteTask = models.ForeignKey(CompleteTask, on_delete=models.CASCADE, related_name='like')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('CompleteTask','user')
+
 
 
