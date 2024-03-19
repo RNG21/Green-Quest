@@ -18,6 +18,8 @@
             <div class="centered row">
               <div class="six wide column">
                 <div style="padding-bottom: 5em; background-color: rgba(245, 245, 245,0.5);" class="ui segment">
+                    <p>Already have an account?</p>
+                    <a href="{% url 'login' %}"><button class="ui inverted green button">Login</button></a>
                   <form action="/register/" method="POST" class="ui form">
                     {% csrf_token %}
                     <h3 style="color: red;">{{ msg }}</h3>
@@ -37,8 +39,11 @@
                       <label for="email">Email：</label>
                       <input type="text" name="email" id="">
                     </div>
+
+                      <p style="text-align: center">By clicking "Register", you agree to the terms and conditions of the game</p>
                     <input style="float: right;" class="ui inverted green button" type="submit" value="Register">
                   </form>
+                    <a href="{% url 'userProtection' %}"><button class="ui inverted green button">Disclaimer</button></a>
                 </div>  
               </div>
             </div>
