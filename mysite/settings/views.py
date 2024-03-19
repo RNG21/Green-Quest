@@ -3,13 +3,13 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from db.models import UserTask
+from db.models import CompleteTask
 
 
 @login_required(login_url='/login')
 def render_settings(request):
     return render(request, 'settings/base.html')
-
+    
 
 @login_required(login_url='/login')
 def delete_account(request):
@@ -17,7 +17,7 @@ def delete_account(request):
         password = request.POST.get('password')
         if request.user.check_password(password):
             # delete user tasks
-            UserTask.objects.filter(user=request.user).delete()
+            CompleteTask.objects.filter(user=request.user).delete()
             # delete account.
             request.user.delete()
             # logout the user

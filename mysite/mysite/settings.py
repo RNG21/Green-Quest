@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+  #  'challenges.apps.MyAppConfig',
     'mysite',
     "settings",
     "challenges",
@@ -133,3 +133,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MAPS_API_KEY = "AIzaSyA8EqB5JfiCCHKzDpT7kbA3AaOwL_Fs-so"
 MAPS_CENTER_COORDINATES = { "lat": 50.735844, "lng": -3.533667 }
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'db', 'images')
+MEDIA_URL = '/images/'

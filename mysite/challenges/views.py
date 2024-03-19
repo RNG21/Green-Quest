@@ -29,26 +29,13 @@ def add_challenge(request: HttpRequest) -> None:
 
 
 def render_map(request: HttpRequest, tasks: Iterable[Task]=...):
-    cookies = request.COOKIES
-    tasks = cookies.get("location")
-    if tasks is not None:
-        tasks = {
-            "name": cookies["task_name"],
-            "description": cookies["task_des"],
-            "location": "Forums"
-        }
-
-        positions = [
-            {
-                "lat": 50.735259873632835,
-                "lng": -3.5336820973566327
-            }
-        ]
-
-    else:
-        tasks = {}
-        positions = []
-
+    tasks = Task.objects.all()
+    positions = [
+        {
+            "lat": task.location.longtitude,
+            "lng": task.location.latitude
+        } for task in tasks
+    ]
     context = {
         "menu_items": tasks,
         "API_KEY": settings.MAPS_API_KEY,
