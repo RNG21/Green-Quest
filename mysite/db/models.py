@@ -1,5 +1,8 @@
-from django.db import models
+from django.db import models, transaction
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.utils.timezone import now
+from django.db.models import Count
 
 class Location(models.Model):
     locationName = models.CharField(max_length=100)
@@ -21,7 +24,7 @@ class Task(models.Model):
     description = models.TextField(default='Default description')
     location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
     def __str__(self):
-        return self.title
+        return f'{self.location.locationName} - {self.title}'
 
 class CompleteTask(models.Model):
     # The attribute that link Task and User, 
@@ -38,6 +41,40 @@ class CompleteTask(models.Model):
         return f'{self.user.username} - {self.task.title}'
     def total_likes(self):
         return self.like.count()
+    @transaction.atomic  # 确保以下操作在一个事务中
+    def save(self, *args, **kwargs):
+        # get current date
+        today = now().date()
+
+        # Check the number of completed tasks of user 
+        completed_tasks_today = CompleteTask.objects.select_for_update().filter(
+            user=self.user, 
+            completion_date__year=today.year, 
+            completion_date__month=today.month, 
+            completion_date__day=today.day
+        )
+
+        # Check if today the user did the same task before
+        tasks_today = CompleteTask.objects.select_for_update().filter(
+            user=self.user,
+            task=self.task,
+            completion_date__year=today.year, 
+            completion_date__month=today.month, 
+            completion_date__day=today.day
+        )
+
+        if tasks_today.exists():
+            raise ValidationError("You cannot complete the same task more than once in a day.")
+
+
+        today_completed_tasks_count = completed_tasks_today.count()
+
+        # Check if the user already did 3 tasks
+        if today_completed_tasks_count >= 3:
+            raise ValidationError("You can only complete up to 3 tasks per day.")
+
+        super(CompleteTask, self).save(*args, **kwargs)
+
 
 class Like(models.Model):
     CompleteTask = models.ForeignKey(CompleteTask, on_delete=models.CASCADE, related_name='like')
