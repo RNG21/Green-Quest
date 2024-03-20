@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Task, CompleteTask, TaskType, Location, Like
+from .models import Task, CompleteTask, TaskType, Location, Like, Profile
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
@@ -24,4 +24,7 @@ class LikeAdmin(admin.ModelAdmin):
     list_display = ('id','CompleteTask', 'user',
                     'created')
 
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user','faculty')
 # Register your models here.

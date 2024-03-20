@@ -27,11 +27,11 @@
 
                       <label for="faculty">Faculty:</label>
                       <select name="faculty" id="faculty">
-                          <option value="environment">Environment</option>
-                          <option value="health">Health</option>
-                          <option value="humanities">Humanities</option>
+                          <option value="environment">Environment, Science and Economy</option>
+                          <option value="health">Health and Life Sciences</option>
+                          <option value="humanities">Humanities, Arts and Social Sciences</option>
                       </select>
-                      
+
                     </div>
                     <div class="field">
                       <label for="username">Username：</label>
@@ -50,10 +50,11 @@
                       <input type="text" name="email" id="">
                     </div>
 
-                      <p style="text-align: center">By clicking "Register", you agree to the terms and conditions of the game</p>
+                      <p style="text-align: center">By clicking "Register", you agree to the 
+                        <a href="{% url 'userProtection' %}">terms and conditions</a>
+                         of the game</p>
                     <input style="float: right;" class="ui inverted green button" type="submit" value="Register">
                   </form>
-                    <a href="{% url 'userProtection' %}"><button class="ui inverted green button">Disclaimer</button></a>
                 </div>  
               </div>
             </div>
