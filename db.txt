@@ -37,9 +37,6 @@ objects = [
 ]
 Task.objects.bulk_create(objects)
 
-
-
-
 Forum: 50.735274, -3.533442
 XFi: 50.735987, -3.529907
 Harrison: 50.737704, -3.532485

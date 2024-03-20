@@ -3,11 +3,11 @@ from .models import Task, CompleteTask, TaskType, Location, Like, Profile
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('id','title', 'taskType', 'description', 'location')
+    list_display = ('id', 'taskType', 'location')
 
 @admin.register(CompleteTask)
 class CompleteTaskAdmin(admin.ModelAdmin):
-    list_display = ('id','user', 'task', 'completion_date', 'description', 
+    list_display = ('id','user', 'task', 'completion_date', 
                     'image', 'latitude', 'longtitude','score')
 
 @admin.register(TaskType)
@@ -27,4 +27,3 @@ class LikeAdmin(admin.ModelAdmin):
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user','faculty')
-# Register your models here.

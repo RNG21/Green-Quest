@@ -18,9 +18,7 @@ class TaskType(models.Model):
         return f" {self.taskName}"
 
 class Task(models.Model):
-    title = models.CharField(max_length=255, default='Untitled Task')
     taskType = models.ForeignKey(TaskType, on_delete=models.CASCADE, null=True)
-    description = models.TextField(default='Default description')
     location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
         return f'{self.location} - {self.title}'
@@ -31,7 +29,6 @@ class CompleteTask(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True)
     completion_date = models.DateTimeField(auto_now_add=True)
-    description = models.TextField(default='Default description')
     image = models.ImageField(upload_to='images/')
     latitude = models.FloatField(null=True)
     longtitude = models.FloatField(null=True)
