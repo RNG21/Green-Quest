@@ -1,0 +1,55 @@
+from db.models import Location, TaskType, Task, CompleteTask, Like
+
+objects = [
+	TaskType(taskName='recycle'),
+	TaskType(taskName='Use reusable items'),
+	TaskType(taskName='Energy saving')
+]
+TaskType.objects.bulk_create(objects)
+
+
+objects = [
+	Location(locationName='XFi', latitude=50.735987, longtitude=-3.529907),
+	Location(locationName='Forum', latitude=50.735274, longtitude=-3.533442),
+	Location(locationName='Streatham Court', latitude=50.735784, longtitude=-3.530982),
+	Location(locationName='Harrison', latitude=50.737704, longtitude=-3.532485),
+	Location(locationName='Amory', latitude=50.736658, longtitude=-3.531870)
+]
+Location.objects.bulk_create(objects)
+
+
+objects = [
+	Task(title='recycle', taskType_id=1, location_id=1),
+	Task(title='recycle', taskType_id=1, location_id=2),
+	Task(title='recycle', taskType_id=1, location_id=3),
+	Task(title='recycle', taskType_id=1, location_id=4),
+	Task(title='recycle', taskType_id=1, location_id=5),
+	Task(title='Use reusable items', taskType_id=2, location_id=1),
+	Task(title='Use reusable items', taskType_id=2, location_id=2),
+	Task(title='Use reusable items', taskType_id=2, location_id=3),
+	Task(title='Use reusable items', taskType_id=2, location_id=4),
+	Task(title='Use reusable items', taskType_id=2, location_id=5),
+	Task(title='Energy saving', taskType_id=3, location_id=1),
+	Task(title='Energy saving', taskType_id=3, location_id=2),
+	Task(title='Energy saving', taskType_id=3, location_id=3),
+	Task(title='Energy saving', taskType_id=3, location_id=4),
+	Task(title='Energy saving', taskType_id=3, location_id=5)
+]
+Task.objects.bulk_create(objects)
+
+
+
+
+Forum: 50.735274, -3.533442
+XFi: 50.735987, -3.529907
+Harrison: 50.737704, -3.532485
+Armory: 50.736658, -3.531870
+Streatham Court: 50.735784, -3.530982
+
+
+
+
+
+
+
+'#' python manage.py flush # clean all data in the database but remain the table. 
