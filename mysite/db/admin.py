@@ -16,7 +16,7 @@ class TaskTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'locationName', 'description',
+    list_display = ('locationName', 'description',
                      'longtitude','latitude')
 
 @admin.register(Like)
