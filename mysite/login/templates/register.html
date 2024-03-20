@@ -23,6 +23,16 @@
                   <form action="/register/" method="POST" class="ui form">
                     {% csrf_token %}
                     <h3 style="color: red;">{{ msg }}</h3>
+                    <div>
+
+                      <label for="faculty">Faculty:</label>
+                      <select name="faculty" id="faculty">
+                          <option value="environment">Environment</option>
+                          <option value="health">Health</option>
+                          <option value="humanities">Humanities</option>
+                      </select>
+                      
+                    </div>
                     <div class="field">
                       <label for="username">Username：</label>
                       <input type="text" name="username" id="">

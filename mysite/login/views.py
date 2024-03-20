@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.shortcuts import redirect
+from .models import Profile
 
 
 # Create your views here.
@@ -25,6 +26,7 @@ def logins(request):
 
 def register(request):
     if request.method == 'POST':
+        faculty = request.POST.get('faculty')
         username = request.POST.get('username')
         password = request.POST.get('password')
         password2 = request.POST.get('password2')
@@ -38,9 +40,10 @@ def register(request):
         if User.objects.filter(username=username).exists():
             msg='Username already exists. Please Choose a different one.'
             return render(request,'register.html',locals())
-        cuser = User.objects.create_user(username=username,password=password,email=email)
-        cuser.save()
-        return redirect('/login/')
+        if not User.objects.filter(username=username).exists():
+            user = User.objects.create_user(username=username, password=password, email=email)
+            Profile.objects.create(user=user, faculty=faculty)
+            return redirect('/login/')
     return render(request,'register.html')
 
 
