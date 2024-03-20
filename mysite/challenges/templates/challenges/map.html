@@ -33,7 +33,7 @@
                         <ul>
                             {% for task in loc_tasks %}
                                 <li>
-                                    <span class="title">{{ task }}</span><br>
+                                    <span class="title">{{ task.taskType }}</span><br>
                                     <span class="description">{{ task.description }}</span><br><br>
                                     <div class="column">
                                         {% if location != "Extras" %}

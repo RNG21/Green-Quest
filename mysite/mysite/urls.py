@@ -26,6 +26,7 @@ from home import views as hviews
 from .views import gallery_view, like_image
 from userProtection.views import render_userProtection
 from userProtection import views as upviews
+from db import views as dbviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -46,7 +47,9 @@ urlpatterns = [
 
     path('gallery/',gallery_view, name='gallery'),
     path('like-image/',like_image,name='like-image'),
-    path('user-protection/',render_userProtection, name='userProtection')
+    path('user-protection/',render_userProtection, name='userProtection'),
+
+    path("create-entries", dbviews.create_db_from_script, name="create-entries")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
