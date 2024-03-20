@@ -1,21 +1,29 @@
-// Initialize and add the map
-let map;
-
 async function initMap(positions, center) {
     // Request needed libraries.
     const { Map } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
-    map = new Map(document.getElementById("map"), {
+    const map = new Map(document.getElementById("map"), {
         zoom: 16,
         center: center,
         mapId: "campus"
-    });
+    });    
 
     for (let position of positions) {
-        new AdvancedMarkerElement({
+        const marker = new AdvancedMarkerElement({
             map: map,
             position: position
+        });
+
+        const info_window = new google.maps.InfoWindow({
+            content: "<h3>"+position.location_name+"</h3>"
+        });
+
+        marker.content.addEventListener('mouseenter', () => {
+            info_window.open(map, marker);
+        });
+        marker.content.addEventListener('mouseleave', () => {
+            info_window.close();
         });
     }
 }
