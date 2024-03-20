@@ -30,18 +30,25 @@ def render_map(request: HttpRequest, tasks: Iterable[Task]=Task.objects.all()):
     if request.method == "POST":
         completed_challenge(request)
 
-    positions = [
-        {
-            "lat": task.location.latitude,
-            "lng": task.location.longtitude,
-            "location_name": str(task.location)
-        } for task in tasks
-    ]
+    loc_tasks = {}
+    positions = []
+    for task in tasks:
+        if str(task.location) not in loc_tasks:
+            loc_tasks[str(task.location)] = []
+        loc_tasks[str(task.location)].append(task)
+
+        positions.append(
+            {
+                "lat": task.location.latitude,
+                "lng": task.location.longtitude,
+                "location_name": str(task.location)
+            }
+        )
 
     context = {
-        "menu_items": tasks,
         "API_KEY": settings.MAPS_API_KEY,
+        "tasks": loc_tasks,
         "positions": json.dumps(positions),
-        "center": json.dumps(settings.MAPS_CENTER_COORDINATES)
+        "center": json.dumps(settings.MAPS_CENTER_COORDINATES),
     }
     return render(request, "challenges/map.html", context=context)

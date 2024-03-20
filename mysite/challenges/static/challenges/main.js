@@ -7,4 +7,9 @@ document.addEventListener("DOMContentLoaded", function() {
     var positions = JSON.parse(dataset.positions);
     var center = JSON.parse(dataset.map_center);
     maps.initMap(positions, center);
+
+    var collapsible = new Collapsible();
+    let callback = maps.center_marker_by_name.bind(maps)
+    collapsible.add_lisenters(callback);
 });
+

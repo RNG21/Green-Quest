@@ -7,28 +7,45 @@
         <link rel="stylesheet" type="text/css" href="{% static 'challenges/map.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'challenges/sidebar.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'challenges/loader.css' %}" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script id="map-script" src="{% static 'challenges/map.js' %}"
+        data-positions="{{ positions }}"
+        data-map_center="{{ center }}"></script>
+        <script src="{% static 'challenges/sidebar.js' %}"></script>
+        <script src="{% static 'challenges/locations.js' %}"></script>
+        <script src="{% static 'challenges/collapsible.js' %}"></script>
     </head>
     <body>
         
         <div id="map"></div>
         
         <div class="sidebar">
-            {% if menu_items %}
-                <ul>
-                    {% for item in menu_items %}
-                        <li>
-                            <span class="title">{{ item }}</span><br>
-                            <span class="description">{{ item.description }}</span><br><br>
-                            <div class="column">
-                                <div class="left">
-                                    Location:<br>
-                                    {{ item.location.locationName }}
-                                </div>
-                                <div class="right"><button onclick="show_submit('{{ item }}', '{{ item.location }}', '{{ item.id }}', '{{ item.location.latitude }}', '{{ item.location.longtitude }}')">Completed</button></div>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
+            {% if tasks %}
+                {% for location, loc_tasks in tasks.items %}
+                    <button type="button" id="{{task.location}}-collapse-button" class="collapsible location-button">{{location}}</button>
+                    <div id="{{task.location}}-collapsible" style="display: none;">
+                        <ul>
+                            {% for task in loc_tasks %}
+                                <li>
+                                    <span class="title">{{ task }}</span><br>
+                                    <span class="description">{{ task.description }}</span><br><br>
+                                    <div class="column">
+                                        <div class="left">
+                                            Location:<br>
+                                            {{ location }}
+                                        </div>
+                                        <div class="right"><button onclick=
+                                            "show_submit(
+                                                '{{ task }}', '{{ task.location }}', '{{ task.id }}', '{{ task.location.latitude }}', '{{ task.location.longtitude }}'
+                                            )">Completed</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
             {% else %}
                 <div id="no-challenges">
                     There are no active challenges<br>
@@ -69,14 +86,8 @@
               // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
               // Add other bootstrap parameters as needed, using camel case.
             });
-          </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        </script>
 
-        <script id="map-script" src="{% static 'challenges/map.js' %}"
-        data-positions="{{ positions }}"
-        data-map_center="{{ center }}"></script>
-        <script src="{% static 'challenges/sidebar.js' %}"></script>
-        <script src="{% static 'challenges/locations.js' %}"></script>
-
-    </body>
+        <script src="{% static 'challenges/main.js' %}"></script>
+</body>
 </html>
