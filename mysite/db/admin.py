@@ -20,7 +20,7 @@ class LocationAdmin(admin.ModelAdmin):
                      'longtitude','latitude')
 
 @admin.register(Like)
-class LikeAdmin(admin.ModelAdmin):
+class LikeAdmin(admin.ModelAdmin):  
     list_display = ('id','CompleteTask', 'user',
                     'created')
 

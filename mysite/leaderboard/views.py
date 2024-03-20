@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .models import LeaderboardEntry
+from db.models import CompleteTask
 
 def leaderboard(request):
     # Retrieve all entries
-    entries = LeaderboardEntry.objects.all()
+    entries = CompleteTask.objects.all()
 
     # Sort entries by score for each faculty
     faculty_entries = {}
@@ -19,7 +19,7 @@ def leaderboard(request):
     overall_entries.sort(key=lambda x: x.score, reverse=True)
     overall_winner = overall_entries[0] if overall_entries else None
         
-    context = {
+    context = { 
         'faculty_entries': faculty_entries,
         'overall_winner': overall_winner,
     }
