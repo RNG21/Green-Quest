@@ -1,2 +1,4 @@
 __pycache__/
 .idea
+migrations/
+mysite/db.sqlite3

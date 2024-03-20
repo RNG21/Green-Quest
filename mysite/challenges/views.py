@@ -1,46 +1,66 @@
 import json
 from typing import Iterable
+import datetime
 
 from django.shortcuts import render
 from django.http import HttpRequest
 from django.conf import settings
 
-from leaderboard.models import LeaderboardEntry
-from db.models import Task, User, TaskType, Location
+from db.models import Task, User, TaskType, Location, CompleteTask
 
 def task_view(request, task_id):
     # method used to send task data to html
-    task = Task.objects.get(id=task_id)  # 获取特定任务
+    task = Task.objects.get(id=task_id)
     context = {'task': task}
     return render(request, 'myapp/Task_chinese.html', context)
 
+
 def completed_challenge(request: HttpRequest) -> None:
-    username = request.POST["username"]
-    score = request.POST["score"]
+    coords = [request.POST["lat"], request.POST["lng"]]
+    for i, coord in enumerate(coords):
+        if coord == "":
+            coords[i] = None
 
-    user = User.objects.get(username=username)
-    LeaderboardEntry(user=user, score=score).save()
+    CompleteTask(
+        user=request.user, 
+        task=Task.objects.get(id=request.POST["task_id"]), 
+        image=request.POST["image"],
+        latitude=coords[0],
+        longtitude=coords[1],
+        completion_date=datetime.datetime.now()
+    ).save()
 
-def add_challenge(request: HttpRequest) -> None:
-    task_name, task_des, location_name = request.POST["task_name"], request.POST["task_des"], request.POST["location"]
-    
-    location = Location.objects.get(name=location_name)
-    TaskType(task_name, task_des, location).save()
 
+def render_map(request: HttpRequest, tasks: Iterable[Task]=Task.objects.all()):
+    if request.method == "POST":
+        completed_challenge(request)
 
-def render_map(request: HttpRequest, tasks: Iterable[Task]=...):
-    tasks = Task.objects.all()
-    positions = [
-        {
-            "lat": task.location.longtitude,
-            "lng": task.location.latitude
-        } for task in tasks
-    ]
+    loc_tasks = {}
+    positions = []
+    for task in tasks:
+        if task.location is None:
+            task.location = Location()
+            task.location.locationName = "Extras"
+            task.location.longtitude = None
+            task.location.latitude = None
+
+        if str(task.location) not in loc_tasks:
+            loc_tasks[str(task.location)] = []
+        loc_tasks[str(task.location)].append(task)
+
+        positions.append(
+            {
+                "lat": task.location.latitude,
+                "lng": task.location.longtitude,
+                "location_name": str(task.location)
+            }
+        )
+    loc_tasks["Extras"] = loc_tasks.pop("Extras")
+
     context = {
-        "menu_items": tasks,
         "API_KEY": settings.MAPS_API_KEY,
+        "tasks": loc_tasks,
         "positions": json.dumps(positions),
         "center": json.dumps(settings.MAPS_CENTER_COORDINATES),
-        "is_admin": True
     }
     return render(request, "challenges/map.html", context=context)

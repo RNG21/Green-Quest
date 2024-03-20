@@ -4,12 +4,12 @@ from django.core.exceptions import ValidationError
 from django.utils.timezone import now
 
 class Location(models.Model):
-    locationName = models.CharField(max_length=100)
-    description = models.CharField(max_length=100, default='Default description')
+    locationName = models.CharField(primary_key=True, max_length=100)
+    description = models.CharField(max_length=100)
     longtitude = models.FloatField(null=True)
     latitude = models.FloatField(null=True)
     def __str__(self):
-        return f" {self.locationName}"
+        return f"{self.locationName}"
 
 class TaskType(models.Model):
     taskName = models.CharField(max_length=100, default = 'recycle')
@@ -33,8 +33,8 @@ class CompleteTask(models.Model):
     completion_date = models.DateTimeField(auto_now_add=True)
     description = models.TextField(default='Default description')
     image = models.ImageField(upload_to='images/')
-    latitude = models.FloatField(default=1)
-    longtitude = models.FloatField(default=1)
+    latitude = models.FloatField(null=True)
+    longtitude = models.FloatField(null=True)
     score = models.IntegerField(default=0)
     def __str__(self):
         return f'{self.user.username} - {self.task.title}'
