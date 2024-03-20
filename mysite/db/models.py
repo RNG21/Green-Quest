@@ -2,7 +2,6 @@ from django.db import models, transaction
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.timezone import now
-from django.db.models import Count
 
 class Location(models.Model):
     locationName = models.CharField(max_length=100)
@@ -41,7 +40,7 @@ class CompleteTask(models.Model):
         return f'{self.user.username} - {self.task.title}'
     def total_likes(self):
         return self.like.count()
-    @transaction.atomic  # 确保以下操作在一个事务中
+    @transaction.atomic
     def save(self, *args, **kwargs):
         # get current date
         today = now().date()
@@ -83,6 +82,13 @@ class Like(models.Model):
 
     class Meta:
         unique_together = ('CompleteTask','user')
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    faculty = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.user.username
 
 
 

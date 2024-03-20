@@ -24,6 +24,7 @@ from settings import views as sviews
 from login import views as lviews
 from home import views as hviews
 from .views import gallery_view, like_image
+from userProtection.views import render_userProtection
 from userProtection import views as upviews
 
 urlpatterns = [
@@ -44,7 +45,8 @@ urlpatterns = [
     path('userProtection/', upviews.render_userProtection, name='userProtection'),
 
     path('gallery/',gallery_view, name='gallery'),
-    path('like-image/',like_image,name='like-image')
+    path('like-image/',like_image,name='like-image'),
+    path('user-protection/',render_userProtection, name='userProtection')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
