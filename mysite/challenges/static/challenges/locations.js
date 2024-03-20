@@ -1,6 +1,6 @@
 
 if (navigator.geolocation == undefined) {
-    throw "geolocation not available in this browser";
+    throw "geolocation is not available in this browser";
 }
 
 function submit_form() {
@@ -14,16 +14,32 @@ function submit_form() {
 }
 
 function setLocation(user_pos) {
-    if (!comparePosition) {
+    if (!comparePosition(user_pos)) {
         alert("User location too far from task location!");
-        return;
+    } else {
+        document.getElementById("usr-lat").value = user_pos.coords.latitude;
+        document.getElementById("usr-lng").value = user_pos.coords.longitude;
+
+        document.getElementById("form").submit();
     }
-    document.getElementById("usr-lat").value = user_pos.coords.latitude;
-    document.getElementById("usr-lng").value = user_pos.coords.longitude;
-
-    document.getElementById("form").submit();
-
     document.getElementById("loader-container").remove();
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI/180);
+}
+  
+function getDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radius of the Earth in kilometers
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1); 
+    const a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2); 
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    const distance = R * c * 1000; // Distance in meters
+    return distance;
 }
 
 /**
@@ -37,10 +53,13 @@ function comparePosition(user_pos) {
 
     const taskLat = document.getElementById("task-lat").value;
     const taskLon = document.getElementById("task-lng").value;
-    const tolerance = 0.01; // how far off can user location be
+
+    const dist = getDistance(userLat, userLon, taskLat, taskLon);
+
+    const tolerance = 100; // how far off can user location be in meters
 
     // Check if user location is close enough to task loc
-    if (Math.abs(userLat - taskLat) <= tolerance && Math.abs(userLon - taskLon) <= tolerance) {
+    if (dist <= tolerance) {
         return true;
     } else {
         return false;
