@@ -13,7 +13,7 @@ class Location(models.Model):
 
 class TaskType(models.Model):
     taskName = models.CharField(max_length=100, default = 'recycle')
-    description = models.CharField(max_length=100, default='Default description')
+    description = models.CharField(max_length=300, default='Default description')
     def __str__(self):
         return f" {self.taskName}"
 
@@ -21,7 +21,7 @@ class Task(models.Model):
     taskType = models.ForeignKey(TaskType, on_delete=models.CASCADE, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
-        return f'{self.location} - {self.title}'
+        return f'{self.location} - {self.taskType}'
 
 class CompleteTask(models.Model):
     # The attribute that link Task and User, 
