@@ -16,12 +16,17 @@ def task_view(request, task_id):
 
 
 def completed_challenge(request: HttpRequest) -> None:
+    coords = [request.POST["lat"], request.POST["lng"]]
+    for i, coord in enumerate(coords):
+        if coord == "":
+            coords[i] = None
+
     CompleteTask(
         user=request.user, 
         task=Task.objects.get(id=request.POST["task_id"]), 
         image=request.POST["image"],
-        latitude=request.POST["lat"],
-        longtitude=request.POST["lng"],
+        latitude=coords[0],
+        longtitude=coords[1],
         completion_date=datetime.datetime.now()
     ).save()
 
@@ -50,6 +55,7 @@ def render_map(request: HttpRequest, tasks: Iterable[Task]=Task.objects.all()):
                 "location_name": str(task.location)
             }
         )
+    loc_tasks["Extras"] = loc_tasks.pop("Extras")
 
     context = {
         "API_KEY": settings.MAPS_API_KEY,

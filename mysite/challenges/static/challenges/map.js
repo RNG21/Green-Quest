@@ -8,7 +8,6 @@ class Maps{
     async initMap(positions, center) {
         // Request needed libraries.
         const { Map } = await google.maps.importLibrary("maps");
-        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
         this.map = new Map(document.getElementById("map"), {
             zoom: 16,
@@ -17,14 +16,19 @@ class Maps{
         });    
 
         for (let position of positions) {
-            const marker = new AdvancedMarkerElement({
-                map: this.map,
-                position: position
-            });
-
-            this.markers[position.location_name] = marker;
-            this.add_infoWindow(map, marker, "<h3>"+position.location_name+"</h3>");
+            this.add_marker(position);
         }
+    }
+
+    async add_marker(position){
+        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+        const marker = new AdvancedMarkerElement({
+            map: this.map,
+            position: position
+        });
+        
+        this.markers[position.location_name] = marker;
+        this.add_infoWindow(this.map, marker, "<h3>"+position.location_name+"</h3>");
     }
 
     add_infoWindow(map, marker, content) {
@@ -45,6 +49,8 @@ class Maps{
     }
 
     center_marker_by_name(location_name) {
-        this.map.setCenter(this.markers[location_name].position);
+        if (location_name != "Extras") {
+            this.map.setCenter(this.markers[location_name].position);
+        }
     }
 }

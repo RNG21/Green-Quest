@@ -10,11 +10,19 @@ function submit_form() {
         <div class="loader"></div>
     </div>`
     );
-    navigator.geolocation.getCurrentPosition(setLocation, this.showError);
+    const taskLat = document.getElementById("task-lat").value;
+    if (taskLat == "None") {
+        document.getElementById("form").submit();
+        document.getElementById("loader-container").remove();
+    } else {
+        navigator.geolocation.getCurrentPosition(setLocation, this.showError, {enableHighAccuracy: true, timeout: 30000});
+    }
 }
 
 function setLocation(user_pos) {
-    if (!comparePosition(user_pos)) {
+    if (user_pos.coords.accuracy >= 50) {
+        alert("Unable to submit: location accuracy too low!\nAccuracy of your GeoLocation service: "+user_pos.coords.accuracy);
+    } else if (!comparePosition(user_pos)) {
         alert("User location too far from task location!");
     } else {
         document.getElementById("usr-lat").value = user_pos.coords.latitude;
@@ -28,7 +36,7 @@ function setLocation(user_pos) {
 function deg2rad(deg) {
     return deg * (Math.PI/180);
 }
-  
+
 function getDistance(lat1, lon1, lat2, lon2) {
     const R = 6371; // Radius of the Earth in kilometers
     const dLat = deg2rad(lat2 - lat1);
@@ -48,15 +56,15 @@ function getDistance(lat1, lon1, lat2, lon2) {
  * @returns {boolean} passes the check or not
  */
 function comparePosition(user_pos) {
-    const userLat = user_pos.coords.latitude;
-    const userLon = user_pos.coords.longitude;
-
     const taskLat = document.getElementById("task-lat").value;
     const taskLon = document.getElementById("task-lng").value;
 
+    const userLat = user_pos.coords.latitude;
+    const userLon = user_pos.coords.longitude;
+
     const dist = getDistance(userLat, userLon, taskLat, taskLon);
 
-    const tolerance = 100; // how far off can user location be in meters
+    const tolerance = 150; // how far off can user location be in meters
 
     // Check if user location is close enough to task loc
     if (dist <= tolerance) {
