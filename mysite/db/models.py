@@ -24,7 +24,7 @@ class Task(models.Model):
     description = models.TextField(default='Default description')
     location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
-        return f'{self.location.locationName} - {self.title}'
+        return f'{self.location} - {self.title}'
 
 class CompleteTask(models.Model):
     # The attribute that link Task and User, 
