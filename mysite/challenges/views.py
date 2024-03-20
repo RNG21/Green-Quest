@@ -33,6 +33,12 @@ def render_map(request: HttpRequest, tasks: Iterable[Task]=Task.objects.all()):
     loc_tasks = {}
     positions = []
     for task in tasks:
+        if task.location is None:
+            task.location = Location()
+            task.location.locationName = "Extras"
+            task.location.longtitude = None
+            task.location.latitude = None
+
         if str(task.location) not in loc_tasks:
             loc_tasks[str(task.location)] = []
         loc_tasks[str(task.location)].append(task)

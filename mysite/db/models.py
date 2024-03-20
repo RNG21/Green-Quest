@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 class Location(models.Model):
     locationName = models.CharField(primary_key=True, max_length=100)
     description = models.CharField(max_length=100)
-    longtitude = models.FloatField()
-    latitude = models.FloatField()
+    longtitude = models.FloatField(null=True)
+    latitude = models.FloatField(null=True)
     def __str__(self):
         return f"{self.locationName}"
 
@@ -19,7 +19,7 @@ class Task(models.Model):
     title = models.CharField(max_length=255, default='Untitled Task')
     taskType = models.ForeignKey(TaskType, on_delete=models.CASCADE, null=True)
     description = models.TextField(default='Default description')
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
         return self.title
 

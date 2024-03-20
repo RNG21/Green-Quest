@@ -23,18 +23,20 @@
         <div class="sidebar">
             {% if tasks %}
                 {% for location, loc_tasks in tasks.items %}
-                    <button type="button" id="{{task.location}}-collapse-button" class="collapsible location-button">{{location}}</button>
-                    <div id="{{task.location}}-collapsible" style="display: none;">
+                    <button type="button" id="{{location}}-collapse-button" class="collapsible location-button">{{location}}</button>
+                    <div id="{{location}}-collapsible" style="display: none;">
                         <ul>
                             {% for task in loc_tasks %}
                                 <li>
                                     <span class="title">{{ task }}</span><br>
                                     <span class="description">{{ task.description }}</span><br><br>
                                     <div class="column">
-                                        <div class="left">
-                                            Location:<br>
-                                            {{ location }}
-                                        </div>
+                                        {% if location != "Extras" %}
+                                            <div class="left">
+                                                Location:<br>
+                                                {{ location }}
+                                            </div>
+                                        {% endif %}
                                         <div class="right"><button onclick=
                                             "show_submit(
                                                 '{{ task }}', '{{ task.location }}', '{{ task.id }}', '{{ task.location.latitude }}', '{{ task.location.longtitude }}'

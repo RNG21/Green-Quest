@@ -22,7 +22,7 @@ class Maps{
                 position: position
             });
 
-            this.markers.location_name = marker;
+            this.markers[position.location_name] = marker;
             this.add_infoWindow(map, marker, "<h3>"+position.location_name+"</h3>");
         }
     }
@@ -45,6 +45,6 @@ class Maps{
     }
 
     center_marker_by_name(location_name) {
-        this.map.setCenter(this.markers[location_name]);
+        this.map.setCenter(this.markers[location_name].position);
     }
 }
