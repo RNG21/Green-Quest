@@ -1,22 +1,35 @@
-async function initMap(positions, center) {
-    // Request needed libraries.
-    const { Map } = await google.maps.importLibrary("maps");
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+class Maps{
+    
+    constructor () {
+        this.markers = {};
+        this.map;
+    }
 
-    const map = new Map(document.getElementById("map"), {
-        zoom: 16,
-        center: center,
-        mapId: "campus"
-    });    
+    async initMap(positions, center) {
+        // Request needed libraries.
+        const { Map } = await google.maps.importLibrary("maps");
+        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
-    for (let position of positions) {
-        const marker = new AdvancedMarkerElement({
-            map: map,
-            position: position
-        });
+        this.map = new Map(document.getElementById("map"), {
+            zoom: 16,
+            center: center,
+            mapId: "campus"
+        });    
 
+        for (let position of positions) {
+            const marker = new AdvancedMarkerElement({
+                map: this.map,
+                position: position
+            });
+
+            this.markers.location_name = marker;
+            this.add_infoWindow(map, marker, "<h3>"+position.location_name+"</h3>");
+        }
+    }
+
+    add_infoWindow(map, marker, content) {
         const info_window = new google.maps.InfoWindow({
-            content: "<h3>"+position.location_name+"</h3>"
+            content: content
         });
 
         marker.content.addEventListener('mouseenter', () => {
@@ -26,14 +39,12 @@ async function initMap(positions, center) {
             info_window.close();
         });
     }
+
+    center_marker(marker) {
+        this.map.setCenter(marker);
+    }
+
+    center_marker_by_name(location_name) {
+        this.map.setCenter(this.markers[location_name]);
+    }
 }
-
-document.addEventListener("DOMContentLoaded", function() {
-    // get dataset from django template render
-    var dataset = document.getElementById("map-script").dataset;
-
-    // init map
-    var positions = JSON.parse(dataset.positions);
-    var center = JSON.parse(dataset.map_center);
-    initMap(positions, center);
-});
