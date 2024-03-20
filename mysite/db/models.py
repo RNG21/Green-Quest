@@ -6,8 +6,8 @@ from django.utils.timezone import now
 class Location(models.Model):
     locationName = models.CharField(max_length=100)
     description = models.CharField(max_length=100, default='Default description')
-    longtitude = models.FloatField(default=1)
-    latitude = models.FloatField(default=1)
+    longtitude = models.FloatField(null=True)
+    latitude = models.FloatField(null=True)
     def __str__(self):
         return f" {self.locationName}"
 
@@ -21,7 +21,7 @@ class Task(models.Model):
     title = models.CharField(max_length=255, default='Untitled Task')
     taskType = models.ForeignKey(TaskType, on_delete=models.CASCADE, null=True)
     description = models.TextField(default='Default description')
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
         return f'{self.location.locationName} - {self.title}'
 
