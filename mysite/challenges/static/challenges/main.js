@@ -8,8 +8,12 @@ document.addEventListener("DOMContentLoaded", function() {
     var center = JSON.parse(dataset.map_center);
     maps.initMap(positions, center);
 
+    // setup collapibles
     var collapsible = new Collapsible();
     let callback = maps.center_marker_by_name.bind(maps)
     collapsible.add_lisenters(callback);
+
+    // Set listeners for popup tutorial
+    popup_listeners()
 });
 

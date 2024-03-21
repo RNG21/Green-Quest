@@ -1,5 +1,2 @@
-APScheduler==3.10.4
 Django==5.0.2
-django_apscheduler==0.6.2
-your_app==0.1.0
 pillow==10.2.0

@@ -6,3 +6,4 @@ from db.create_db_entries import create_entries
 @staff_member_required
 def create_db_from_script(request):
     create_entries()
+    return render(request, "db/create_entries.html")
