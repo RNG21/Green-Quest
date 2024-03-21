@@ -88,7 +88,7 @@
             <input type="hidden" id="task-lat" value="">
             <input type="hidden" id="task-lng" value="">
             <button id="close" style="float: right;" onclick="hide_submit()">X</button>
-            <form id="form" method="POST">
+            <form id="form" enctype="multipart/form-data" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="task_id" id="task-id" value="">
                 <input type="hidden" name="lat" id="usr-lat" value="">

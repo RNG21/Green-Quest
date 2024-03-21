@@ -18,10 +18,12 @@ def completed_challenge(request: HttpRequest) -> None:
         if coord == "":
             coords[i] = None
 
+    print(request.FILES['image'].read())
+
     CompleteTask(
         user=request.user, 
         task=Task.objects.get(id=request.POST["task_id"]), 
-        image=request.POST["image"],
+        image=request.FILES['image'],
         latitude=coords[0],
         longtitude=coords[1],
         completion_date=datetime.datetime.now()
