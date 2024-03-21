@@ -3,6 +3,8 @@ if (navigator.geolocation == undefined) {
     throw "geolocation is not available in this browser";
 }
 
+var dataset = document.getElementById("location-script").dataset;
+
 function file_attached() {
     return document.getElementById("input_image").files.length > 0
 }
@@ -20,7 +22,7 @@ function submit_form() {
     } else if (document.getElementById("task-lat").value == "None") {
         submit_and_record();
     } else {
-        navigator.geolocation.getCurrentPosition(setLocation, this.showError, {enableHighAccuracy: true, timeout: 30000});
+        navigator.geolocation.getCurrentPosition(setLocation, this.showError, {enableHighAccuracy: true, timeout: dataset.timeout_millis});
     }
 }
 
@@ -75,9 +77,9 @@ function submit_and_record() {
 
 async function setLocation(user_pos) {
     if (user_pos.coords.accuracy >= 50) {
-        await new Promise(r => setTimeout(r, 10000));
+        await new Promise(r => setTimeout(r, dataset.timeout_millis));
         if (user_pos.coords.accuracy >= 50) {
-            alert("Unable to submit: location accuracy too low!\nAccuracy of your GeoLocation service: "+user_pos.coords.accuracy);
+            alert("Unable to gain your high accuracy location!");
         }
     }
     if (!comparePosition(user_pos)) {

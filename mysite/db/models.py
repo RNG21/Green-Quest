@@ -39,6 +39,7 @@ class CompleteTask(models.Model):
     latitude = models.FloatField(null=True)
     longtitude = models.FloatField(null=True)
     score = models.IntegerField(default=0)
+    showcase_image = models.BooleanField(default=False)
     def __str__(self):
         return f'{self.user.username} - {self.task.taskType}'
     
@@ -59,7 +60,8 @@ class CompleteTask(models.Model):
 
             if tasks_today.exists():
                 raise ValidationError("You cannot complete the same task more than once in a day.")
-
+            del kwargs["check_duplicate"]
+            
         super(CompleteTask, self).save(*args, **kwargs)
 
 

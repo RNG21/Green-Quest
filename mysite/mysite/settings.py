@@ -134,6 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MAPS_API_KEY = "AIzaSyA8EqB5JfiCCHKzDpT7kbA3AaOwL_Fs-so"
 MAPS_CENTER_COORDINATES = { "lat": 50.735844, "lng": -3.533667 }
+MAPS_TIMEOUTMILLIS = 30000
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
