@@ -3,6 +3,10 @@ if (navigator.geolocation == undefined) {
     throw "geolocation is not available in this browser";
 }
 
+function file_attached() {
+    return document.getElementById("input_image").files.length > 0
+}
+
 function submit_form() {
     $('body').append(`
     <div id="loader-container" class="loader-container center">
@@ -10,8 +14,10 @@ function submit_form() {
         <div class="loader"></div>
     </div>`
     );
-    const taskLat = document.getElementById("task-lat").value;
-    if (taskLat == "None") {
+    if (!file_attached()) {
+        alert("You must attach an image as proof of completion!");
+        document.getElementById("loader-container").remove();
+    } else if (document.getElementById("task-lat").value == "None") {
         submit_and_record();
     } else {
         navigator.geolocation.getCurrentPosition(setLocation, this.showError, {enableHighAccuracy: true, timeout: 30000});
@@ -64,6 +70,7 @@ function submit_and_record() {
     document.cookie = "completed_tasks="+JSON.stringify(completed)+";expires=" + today_end().toUTCString()+";path=/" ;
 
     document.getElementById("form").submit();
+    document.getElementById("loader-container").remove();
 }
 
 async function setLocation(user_pos) {
