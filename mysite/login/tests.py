@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User
+
+from db.models import User
 
 class RegisterViewTest(TestCase):
     def test_register_success(self):

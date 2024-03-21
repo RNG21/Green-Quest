@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.contrib.auth.models import User
 from db.models import CompleteTask
 
+from db.models import User
 
 @login_required(login_url='/login')
 def render_settings(request):

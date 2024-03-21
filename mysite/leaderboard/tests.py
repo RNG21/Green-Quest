@@ -1,6 +1,6 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
-from .models import LeaderboardEntry
+
+from db.models import LeaderboardEntry, User
 #TODO: Add tests for the leaderboard app + fix the failing tests.
 class LeaderboardEntryTest(TestCase):
     def setUp(self):

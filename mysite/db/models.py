@@ -3,7 +3,6 @@ from django.contrib.auth.models import User as U
 
 class User(U):
     faculty = models.CharField(max_length=100)
-    
 
 class Location(models.Model):
     locationName = models.CharField(max_length=100)

@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Task, CompleteTask, TaskType, Location, Like
+from .models import Task, CompleteTask, TaskType, Location, Like, User
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
@@ -7,7 +11,7 @@ class TaskAdmin(admin.ModelAdmin):
 
 @admin.register(CompleteTask)
 class CompleteTaskAdmin(admin.ModelAdmin):
-    list_display = ('id','user', 'task', 'completion_date', 'description', 
+    list_display = ('id', 'user', 'task', 'completion_date', 'description', 
                     'image', 'latitude', 'longtitude','score')
 
 @admin.register(TaskType)
