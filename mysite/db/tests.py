@@ -1,28 +1,26 @@
 from django.test import TestCase
-from .models import TaskType
-from .models import Location
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from .models import CompleteTask, Task, TaskType
 
-class TaskTypeTestCase(TestCase):
+class CompleteTaskModelTest(TestCase):
     def setUp(self):
-        self.location = Location.objects.create(
-            locationName='Test Location',
-            description='Test Description',
-            longitude=0.0,
-            latitude=0.0
-        )
-        self.task_type = TaskType.objects.create(
-            taskName='Test Task',
-            description='Test Description',
-            location=self.location
-        )
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+        task_type = TaskType.objects.create(taskName='Test Task')
+        self.task = Task.objects.create(taskType=task_type)
+        self.complete_task = CompleteTask.objects.create(user=self.user, task=self.task)
 
-    def test_task_type_str(self):
-        self.assertEqual(
-            str(self.task_type),
-            f"{self.task_type.typeID}, {self.task_type.taskName}"
-        )
+    def test_complete_task_str(self):
+        self.assertEqual(str(self.complete_task), 'testuser -  Test Task')
 
-    def test_task_type_location(self):
-        self.assertEqual(self.task_type.location, self.location)
+    def test_complete_task_save(self):
+        # Test saving a complete task
+        task_type = TaskType.objects.create(taskName='New Task')
+        new_task = Task.objects.create(taskType=task_type)
+        new_complete_task = CompleteTask(user=self.user, task=new_task)
+        new_complete_task.save()  # This should not raise an exception
 
-    # Add more tests as needed
+    def tearDown(self):
+        self.user.delete()
+        self.task.delete()
+        self.complete_task.delete()

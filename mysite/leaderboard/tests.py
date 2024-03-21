@@ -1,18 +1,22 @@
-from django.test import TestCase
+from django.test import TestCase, Client
+from .views import leaderboard
 
-from db.models import LeaderboardEntry, User
-#TODO: Add tests for the leaderboard app + fix the failing tests.
-class LeaderboardEntryTest(TestCase):
+class LeaderboardTestCase(TestCase):
     def setUp(self):
+        self.client = Client()
 
-        self.user = User.objects.create_user(username='testuser', password='testpassword')
-        self.assertTrue(User.objects.filter(username='testuser').exists())
-'''        self.entry = LeaderboardEntry.objects.create(user=self.user, score=100)
+    def test_leaderboard(self):
+        response = self.client.get('/leaderboard/')
 
-    def test_leaderboard_entry_creation(self):
-         self.assertEqual(self.entry.score, 100)
-         self.assertEqual(self.entry.user, self.user)
+        # Assert that the response status code is 200 (OK)
+        self.assertEqual(response.status_code, 200)
 
-    def test_leaderboard_entry_str(self):
-         self.assertEqual(str(self.entry), f"LeaderboardEntry {self.entry.id}")
-'''
+        # Assert that the response contains the expected keys in the context
+        self.assertIn('student_entries', response.context)
+        self.assertIn('faculty_entries', response.context)
+        self.assertIn('overall_winner', response.context)
+
+        # Assert that the response context values are of the expected types
+        self.assertIsInstance(response.context['student_entries'], dict)
+        self.assertIsInstance(response.context['faculty_entries'], dict)
+        self.assertIsInstance(response.context['overall_winner'], str)
