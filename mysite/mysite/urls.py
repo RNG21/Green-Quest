@@ -26,7 +26,6 @@ from settings import views as sviews
 from login import views as lviews
 from home import views as hviews
 from userProtection.views import render_userProtection
-from userProtection import views as upviews
 from db import views as dbviews
 from gallery import views as gviews
 
@@ -45,7 +44,6 @@ urlpatterns = [
 
     path('login/', lviews.logins, name='login'),
     path('register/', lviews.register, name='register'),
-    path('userProtection/', upviews.render_userProtection, name='userProtection'),
 
     path('gallery/',gviews.render_gallery, name='gallery'),
     path('user-protection/',render_userProtection, name='userProtection'),
