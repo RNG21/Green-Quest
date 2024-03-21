@@ -24,7 +24,7 @@ def completed_challenge(request: HttpRequest) -> None:
         latitude=coords[0],
         longtitude=coords[1],
         completion_date=datetime.datetime.now()
-    ).save()
+    ).save(check_duplicate=True)
 
 
 def render_map(request: HttpRequest, tasks: Iterable[Task]=Task.objects.all()):
