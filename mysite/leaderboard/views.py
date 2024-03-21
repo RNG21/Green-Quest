@@ -2,10 +2,8 @@ from django.shortcuts import render
 from db.models import CompleteTask
 
 def leaderboard(request):
-    # Retrieve all entries
     entries = CompleteTask.objects.all()
 
-    # Sort entries by score for each faculty
     faculty_entries = {}
     for entry in entries:
         faculty = entry.user.faculty
@@ -14,7 +12,6 @@ def leaderboard(request):
         faculty_entries[faculty].append(entry)
         faculty_entries[faculty].sort(key=lambda x: x.score, reverse=True)
 
-    # Calculate overall winning entry
     overall_entries = [entry for faculty_entries_list in faculty_entries.values() for entry in faculty_entries_list]
     overall_entries.sort(key=lambda x: x.score, reverse=True)
     overall_winner = overall_entries[0] if overall_entries else None
