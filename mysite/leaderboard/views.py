@@ -30,9 +30,14 @@ def leaderboard(request: HttpRequest):
     user_scores = sort_dict_by_value(user_scores)
     faculty_scores = sort_dict_by_value(faculty_scores)
 
+    try:
+        first = next(iter(faculty_scores))
+    except:
+        first = ""
+
     context = { 
         "student_entries": user_scores,
         'faculty_entries': faculty_scores,
-        'overall_winner': next(iter(faculty_scores)),
+        'overall_winner': first,
     }
     return render(request, 'leaderboard.html', context)

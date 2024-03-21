@@ -5,7 +5,6 @@ from django.shortcuts import render
 from django.http import HttpRequest
 from django.conf import settings
 
-from leaderboard.models import LeaderboardEntry
 from db.models import Task, User, TaskType, Location
 
 def task_view(request, task_id):
@@ -13,13 +12,6 @@ def task_view(request, task_id):
     task = Task.objects.get(id=task_id)  # 获取特定任务
     context = {'task': task}
     return render(request, 'myapp/Task_chinese.html', context)
-
-def completed_challenge(request: HttpRequest) -> None:
-    username = request.POST["username"]
-    score = request.POST["score"]
-
-    user = User.objects.get(username=username)
-    LeaderboardEntry(user=user, score=score).save()
 
 def add_challenge(request: HttpRequest) -> None:
     task_name, task_des, location_name = request.POST["task_name"], request.POST["task_des"], request.POST["location"]
