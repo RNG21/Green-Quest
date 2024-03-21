@@ -5,20 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        body, html {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            height: 100%;
+        }
+        .background-container {
+            background: linear-gradient(to bottom right, #00b09b, #96c93d);
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }    
+        .container-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            padding-top: 20px;
         }
         .container {
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 40%;
             padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
+            margin: 0 10px; 
         }
         h1 {
             text-align: center;
             color: #333;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
         }
         table {
             width: 100%;
@@ -32,6 +55,8 @@
         }
         th {
             background-color: #f2f2f2;
+            font-weight: bold;
+            text-transform: uppercase;
         }
         tr:nth-child(even) {
             background-color: #f9f9f9;
@@ -39,38 +64,92 @@
         tr:hover {
             background-color: #f2f2f2;
         }
-        .rank {
-            width: 10%;
+        .rank, .user, .score {
+            width: 20%;
         }
-        .user {
-            width: 60%;
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
         }
-        .score {
-            width: 30%;
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+        }
+        .empty-row td {
+            background-color: #ececec; 
+        }
+        .winning-faculty {
+            position: absolute;
+            top: 20px;
+            background-color: #98FB98;
+            color: #000000;
+            padding: 10px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     {% include 'mysite/base.html' %}
 
-    <div class="container">
-        <h1>Leaderboard</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th class="rank">Rank</th>
-                    <th class="user">User</th>
-                    <th class="score">Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="rank">1</td>
-                    <td class="user">{{ user.username }}</td>
-                    <td class="score">1</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="background-container">
+        <div class="winning-faculty">
+            
+            Overall Winning Faculty: {{ overall_winner }}
+        </div>
+        <div class="container-wrapper">
+            <div class="container">
+                <h1>Student Leaderboard</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="rank">Rank</th>
+                            <th class="user">User</th>
+                            <th class="score">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for name, score in student_entries.items %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td class="user">{{name}}</td>
+                            <td>{{ score }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="container">
+                <h1>Faculty Leaderboard</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="rank">Rank</th>
+                            <th class="user">Name</th>
+                            <th class="score">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for name, score in faculty_entries.items %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td class="user">{{name}}</td>
+                            <td>{{ score }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 </html>

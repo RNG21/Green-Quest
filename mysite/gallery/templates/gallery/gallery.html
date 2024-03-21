@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gallery</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #00b09b, #96c93d);
+            height: 100vh; 
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+        }
+
+        h1 {
+            position: absolute; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to bottom right, #00b09b, #96c93d);
+            padding: 5px 0; 
+            text-align: center;
+            z-index: 0; 
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            padding: 20px;
+            margin-top: 70px; 
+        }
+
+        .image-item {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-item img {
+            max-width: 200px;
+            height: auto;
+            cursor: pointer; 
+            transition: transform 0.2s;
+        }
+
+        .image-item img:hover {
+            transform: scale(1.1);
+        }
+
+        .like-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1;
+            font-size: 24px;
+            line-height: 24px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+        }
+
+        .like-button::before {
+            content: "\2764"; /* Filled heart symbol */
+            color: white;
+            transition: color 0.3s;
+        }
+
+        .like-button.clicked::before {
+            content: "\2764"; /* Filled heart symbol */
+            color: red;
+        }
+
+        .like-count {
+            position: middle;
+            bottom: 5px;
+            right: 5px;
+            font-size: 14px;
+        }
+
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000;
+            padding-top: 50px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9); 
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%; 
+            max-height: 90%; 
+        }
+
+        .modal-content {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @-webkit-keyframes zoom {
+            from {-webkit-transform:scale(0)}
+            to {-webkit-transform:scale(1)}
+        }
+
+        @keyframes zoom {
+            from {transform:scale(0)}
+            to {transform:scale(1)}
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Image Gallery</h1> 
+    {% include 'mysite/base.html' %}
+    <div class="image-gallery">
+        {% for task in tasks %}
+        <div class="image-item">
+            <img src="{{ task.image.url }}" alt="{{ task.title }}" onclick="openModal('{{ task.image.url }}')">
+            <p>{{ task.description }}</p>
+            <button class="like-button {% if request.user in task.likes.all %}clicked{% endif %}" data-task-id="{{ task.id }}" onclick="likeImage(event, '{{ task.id }}')"></button>
+            <span class="like-count" id="like-count-{{ task.id }}">{{ task.total_likes }} Likes</span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="myModal" class="modal" onclick="closeModal()">
+        <span class="close">×</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.like-button').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const taskId = this.getAttribute('data-task-id');
+                    fetch('/gallery/', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': getCookie('csrftoken'),
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({'like': taskId}),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.status === 'ok') {
+                            const likeCountElement = document.getElementById(`like-count-${taskId}`);
+                            likeCountElement.textContent = `${data.total_likes} Likes`;
+                            this.classList.toggle('clicked', data.is_liked);
+                        } else {
+                            console.error('Error liking image:', data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function likeImage(event) {
+            var button = event.target;
+            button.classList.toggle('clicked'); 
+            var likeCountElement = button.nextElementSibling; 
+            var currentLikes = parseInt(likeCountElement.innerHTML) || 0; 
+
+            if (button.classList.contains('clicked')) {
+                likeCountElement.innerHTML = `${currentLikes + 1} Likes`; 
+            } else {
+                likeCountElement.innerHTML = `${currentLikes - 1} Likes`; 
+            }
+        }
+
+        function openModal(imageSrc) {
+            var modal = document.getElementById("myModal");
+            var modalImg = document.getElementById("img01");
+            modal.style.display = "block";
+            modalImg.src = imageSrc;
+            document.getElementById("title").style.visibility = "hidden"; 
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+            document.getElementById("title").style.visibility = "visible"; 
+        }
+    </script>
+</body>
+</html>

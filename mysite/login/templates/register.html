@@ -3,18 +3,49 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <title>Register</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <style>
+      body {
+          background: linear-gradient(to bottom right, #00b09b, #96c93d);
+          margin: 0;
+          padding: 0;
+          height: 100vh;
+          overflow: hidden;
+      }
+
+      .container {
+          width: 70%;
+          margin: 0 auto;
+          padding-top: 20em;
+          padding-bottom: 20em;
+      }
+
+      .segment {
+          padding-bottom: 5em;
+          background-color: rgba(245, 245, 245, 0.5);
+      }
+
+      .center {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+  </style>
+  <title>Register</title>
 </head>
 
 <body>
 
   {% include 'mysite/base.html' %}
 
-    <div style="width: 70%; margin: 0 auto; padding-top: 20em;padding-bottom: 20em;">   
-          <div class="ui stackable centered column grid">
+    <div style="max-width: 2000px; margin: 0 auto;" class="center">   
+          <div>
             <div class="centered row">
               <div class="six wide column">
                 <div style="padding-bottom: 5em; background-color: rgba(245, 245, 245,0.5);" class="ui segment">
@@ -27,9 +58,9 @@
 
                       <label for="faculty">Faculty:</label>
                       <select name="faculty" id="faculty">
-                          <option value="environment">Environment, Science and Economy</option>
-                          <option value="health">Health and Life Sciences</option>
-                          <option value="humanities">Humanities, Arts and Social Sciences</option>
+                          <option value="Environment, Science and Economy">Environment, Science and Economy</option>
+                          <option value="Health and Life Sciences">Health and Life Sciences</option>
+                          <option value="Humanities, Arts and Social Sciences">Humanities, Arts and Social Sciences</option>
                       </select>
 
                     </div>

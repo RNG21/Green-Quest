@@ -1,7 +1,12 @@
 from django.db import models, transaction
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as U
 from django.core.exceptions import ValidationError
 from django.utils.timezone import now
+
+class User(U):
+    faculty = models.CharField(max_length=100)
+    def __str__(self):
+        return str(self.username)
 
 class Location(models.Model):
     locationName = models.CharField(primary_key=True, max_length=100)
@@ -35,8 +40,6 @@ class CompleteTask(models.Model):
     score = models.IntegerField(default=0)
     def __str__(self):
         return f'{self.user.username} - {self.task.taskType}'
-    def total_likes(self):
-        return self.like.count()
     
     @transaction.atomic
     def save(self, *args, **kwargs):
@@ -74,18 +77,7 @@ class CompleteTask(models.Model):
 
 class Like(models.Model):
     CompleteTask = models.ForeignKey(CompleteTask, on_delete=models.CASCADE, related_name='like')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(U, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        unique_together = ('CompleteTask','user')
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    faculty = models.CharField(max_length=100)
-
     def __str__(self):
-        return self.user.username
-
-
-
+        return f"{self.CompleteTask}{self.user}"

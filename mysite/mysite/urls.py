@@ -18,21 +18,23 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+
 from mysite import views
+from leaderboard import views as lbviews
 from challenges import views as cviews
 from settings import views as sviews
 from login import views as lviews
 from home import views as hviews
-from .views import gallery_view, like_image
 from userProtection.views import render_userProtection
 from userProtection import views as upviews
 from db import views as dbviews
+from gallery import views as gviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', hviews.home, name='home'),
     path('base/', views.base, name='base'),
-    path('leaderboard/', views.leaderboard, name='leaderboard'),
+    path('leaderboard/', lbviews.leaderboard, name='leaderboard'),
     path("challenges/", cviews.render_map, name="challenges"),
 
     path("settings/", sviews.render_settings, name="settings"),
@@ -45,10 +47,8 @@ urlpatterns = [
     path('register/', lviews.register, name='register'),
     path('userProtection/', upviews.render_userProtection, name='userProtection'),
 
-    path('gallery/',gallery_view, name='gallery'),
-    path('like-image/',like_image,name='like-image'),
+    path('gallery/',gviews.render_gallery, name='gallery'),
     path('user-protection/',render_userProtection, name='userProtection'),
-
     path("create-entries", dbviews.create_db_from_script, name="create-entries")
 ]
 

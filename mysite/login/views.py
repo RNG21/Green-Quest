@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.shortcuts import redirect
-from db.models import Profile
 
+from db.models import User
 
 # Create your views here.
 def index(request):
@@ -41,8 +40,7 @@ def register(request):
             msg='Username already exists. Please Choose a different one.'
             return render(request,'register.html',locals())
         if not User.objects.filter(username=username).exists():
-            user = User.objects.create_user(username=username, password=password, email=email)
-            Profile.objects.create(user=user, faculty=faculty)
+            user = User.objects.create_user(faculty=faculty, username=username, password=password, email=email)
             return redirect('/login/')
     return render(request,'register.html')
 

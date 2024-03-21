@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "home",
     "leaderboard",
     "userProtection",
+    "gallery"
 ]
 
 MIDDLEWARE = [
