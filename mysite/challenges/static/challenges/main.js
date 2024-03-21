@@ -14,6 +14,17 @@ document.addEventListener("DOMContentLoaded", function() {
     collapsible.add_lisenters(callback);
 
     // Set listeners for popup tutorial
-    popup_listeners()
+    popup_listeners();
+
+    var completed = getCookie("completed_tasks");
+    console.log(completed);
+    if (completed) {
+        completed = JSON.parse(completed);
+        console.log(completed);
+        for (var task_id of completed) {
+            console.log(task_id);
+            document.getElementById(task_id).remove();
+        }
+    }
 });
 

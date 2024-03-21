@@ -5,6 +5,8 @@ import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.http import JsonResponse
 
 from db.models import Task, Location, CompleteTask
 
@@ -27,7 +29,10 @@ def completed_challenge(request: HttpRequest) -> None:
 
 def render_map(request: HttpRequest, tasks: Iterable[Task]=Task.objects.all()):
     if request.method == "POST":
-        completed_challenge(request)
+        try:
+            completed_challenge(request)
+        except ValidationError as e:
+            return JsonResponse({'message':str(e)}, status=400)
 
     # Organising data into formats for front-end rendering
     loc_tasks = {}

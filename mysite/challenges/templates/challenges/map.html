@@ -53,7 +53,7 @@
                     <div id="{{location}}-collapsible" style="display: none;">
                         <ul>
                             {% for task in loc_tasks %}
-                                <li>
+                                <li id="{{task.id}}">
                                     <span class="title">{{ task.taskType }}</span><br>
                                     <span class="description">{{ task.description }}</span><br><br>
                                     <div class="column">
@@ -65,7 +65,7 @@
                                         {% endif %}
                                         <div class="right"><button onclick=
                                             "show_submit(
-                                                '{{ task }}', '{{ task.location }}', '{{ task.id }}', '{{ task.location.latitude }}', '{{ task.location.longtitude }}'
+                                                '{{ task.taskType }}', '{{ task.location }}', '{{ task.id }}', '{{ task.location.latitude }}', '{{ task.location.longtitude }}'
                                             )">Completed</button>
                                         </div>
                                     </div>

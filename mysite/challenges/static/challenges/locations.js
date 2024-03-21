@@ -12,25 +12,76 @@ function submit_form() {
     );
     const taskLat = document.getElementById("task-lat").value;
     if (taskLat == "None") {
-        document.getElementById("form").submit();
-        document.getElementById("loader-container").remove();
+        submit_and_record();
     } else {
         navigator.geolocation.getCurrentPosition(setLocation, this.showError, {enableHighAccuracy: true, timeout: 30000});
     }
 }
 
-function setLocation(user_pos) {
+function getCookie(cookieName) {
+    const name = cookieName + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+    for(let i = 0; i <cookieArray.length; i++) {
+        let cookie = cookieArray[i];
+        while (cookie.charAt(0) === ' ') {
+            cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+    return "";
+}
+
+function today_end(){
+        // Get current date
+        var date = new Date();
+
+        // Advance date by one day
+        date.setDate(date.getDate() + 1);
+    
+        // Set time to 00:00:00
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        date.setMilliseconds(0);
+    
+        return date;
+}
+
+function submit_and_record() {
+    var value = document.getElementById("task-id").value;
+
+    let completed = getCookie("completed_tasks");
+    if (completed) {
+        completed = JSON.parse(completed);
+        completed.push(value);
+    } else {
+        completed = [value];
+    }
+
+    document.cookie = "completed_tasks="+JSON.stringify(completed)+";expires=" + today_end().toUTCString()+";path=/" ;
+
+    document.getElementById("form").submit();
+}
+
+async function setLocation(user_pos) {
     if (user_pos.coords.accuracy >= 50) {
-        alert("Unable to submit: location accuracy too low!\nAccuracy of your GeoLocation service: "+user_pos.coords.accuracy);
-    } else if (!comparePosition(user_pos)) {
+        await new Promise(r => setTimeout(r, 10000));
+        if (user_pos.coords.accuracy >= 50) {
+            alert("Unable to submit: location accuracy too low!\nAccuracy of your GeoLocation service: "+user_pos.coords.accuracy);
+        }
+    }
+    if (!comparePosition(user_pos)) {
         alert("User location too far from task location!");
+        document.getElementById("loader-container").remove();
     } else {
         document.getElementById("usr-lat").value = user_pos.coords.latitude;
         document.getElementById("usr-lng").value = user_pos.coords.longitude;
 
-        document.getElementById("form").submit();
+        submit_and_record();
     }
-    document.getElementById("loader-container").remove();
 }
 
 function deg2rad(deg) {

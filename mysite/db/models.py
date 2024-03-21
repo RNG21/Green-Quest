@@ -34,9 +34,10 @@ class CompleteTask(models.Model):
     longtitude = models.FloatField(null=True)
     score = models.IntegerField(default=0)
     def __str__(self):
-        return f'{self.user.username} - {self.task.title}'
+        return f'{self.user.username} - {self.task.taskType}'
     def total_likes(self):
         return self.like.count()
+    
     @transaction.atomic
     def save(self, *args, **kwargs):
         # get current date
@@ -61,7 +62,6 @@ class CompleteTask(models.Model):
 
         if tasks_today.exists():
             raise ValidationError("You cannot complete the same task more than once in a day.")
-
 
         today_completed_tasks_count = completed_tasks_today.count()
 
