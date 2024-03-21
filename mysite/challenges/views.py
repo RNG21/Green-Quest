@@ -2,6 +2,7 @@ import json
 from typing import Iterable
 import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpRequest
 from django.conf import settings
@@ -26,7 +27,7 @@ def completed_challenge(request: HttpRequest) -> None:
         completion_date=datetime.datetime.now()
     ).save(check_duplicate=True)
 
-
+@login_required(login_url="/login")
 def render_map(request: HttpRequest, tasks: Iterable[Task]=Task.objects.all()):
     if request.method == "POST":
         try:
