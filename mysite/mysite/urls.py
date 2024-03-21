@@ -19,6 +19,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from mysite import views
+from leaderboard import views as lbviews
 from challenges import views as cviews
 from settings import views as sviews
 from login import views as lviews
@@ -30,7 +31,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', hviews.home, name='home'),
     path('base/', views.base, name='base'),
-    path('leaderboard/', views.leaderboard, name='leaderboard'),
+    path('leaderboard/', lbviews.leaderboard, name='leaderboard'),
     path("challenges/", cviews.render_map, name="challenges"),
 
     path("settings/", sviews.render_settings, name="settings"),

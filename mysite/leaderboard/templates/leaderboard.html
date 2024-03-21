@@ -90,7 +90,6 @@
         .winning-faculty {
             position: absolute;
             top: 20px;
-            : 20px;
             background-color: #98FB98;
             color: #000000;
             padding: 10px;
@@ -104,7 +103,7 @@
     <div class="background-container">
         <div class="winning-faculty">
             
-            Overall Winning Faculty: {{ winning_faculty }}
+            Overall Winning Faculty: {{ overall_winner }}
         </div>
         <div class="container-wrapper">
             <div class="container">
@@ -118,25 +117,11 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                        {% for entry in student_entries %}
+                    {% for name, score in student_entries.items %}
                         <tr>
-                            <td>{{ forloop.index }}</td>
-                            <td class="user">
-                                <div class="user-info">
-                                    <img src="{{ entry.user.profile_picture.url }}" alt="Avatar" class="avatar">
-                                    {{ entry.user.username }}
-                                </div>
-                            </td>
-                            <td>{{ entry.score }}</td>
-                        </tr>
-                        {% endfor %}
-
-                        {% for i in 1..10 %}
-                        <tr class="empty-row">
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td class="user">{{name}}</td>
+                            <td>{{ score }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -154,25 +139,11 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                        {% for entry in faculty_entries %}
+                        {% for name, score in faculty_entries.items %}
                         <tr>
-                            <td>{{ forloop.index }}</td>
-                            <td class="user">
-                                <div class="user-info">
-                                    <img src="{{ entry.user.profile_picture.url }}" alt="Avatar" class="avatar">
-                                    {{ entry.user.username }}
-                                </div>
-                            </td>
-                            <td>{{ entry.score }}</td>
-                        </tr>
-                        {% endfor %}
-
-                        {% for i in 1..10 %}
-                        <tr class="empty-row">
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td class="user">{{name}}</td>
+                            <td>{{ score }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

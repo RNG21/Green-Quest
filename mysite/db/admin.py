@@ -3,7 +3,7 @@ from .models import Task, CompleteTask, TaskType, Location, Like, User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("username", "faculty", "email", "date_joined")
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):

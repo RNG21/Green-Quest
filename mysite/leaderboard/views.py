@@ -1,23 +1,38 @@
+from typing import Dict
+
 from django.shortcuts import render
+from django.http import HttpRequest
+
 from db.models import CompleteTask
 
-def leaderboard(request):
+def sort_dict_by_value(dict: Dict, max_len: int=10):
+    return {k: v for i, (k, v) in enumerate(sorted(dict.items(), reverse=True, key=lambda item: item[1])) if i<max_len}
+
+def leaderboard(request: HttpRequest):
     entries = CompleteTask.objects.all()
 
-    faculty_entries = {}
+    # Sum scores by user and faculty
+    user_scores = {}
+    faculty_scores = {}
     for entry in entries:
-        faculty = entry.user.faculty
-        if faculty not in faculty_entries:
-            faculty_entries[faculty] = []
-        faculty_entries[faculty].append(entry)
-        faculty_entries[faculty].sort(key=lambda x: x.score, reverse=True)
+        user = entry.user
 
-    overall_entries = [entry for faculty_entries_list in faculty_entries.values() for entry in faculty_entries_list]
-    overall_entries.sort(key=lambda x: x.score, reverse=True)
-    overall_winner = overall_entries[0] if overall_entries else None
+        # Add key if not already exist
+        if not user_scores.get(user.username):
+            user_scores[user.username] = 0
+        if not faculty_scores.get(user.faculty):
+            faculty_scores[user.faculty] = 0
         
+        # Sum scores
+        user_scores[user.username] += entry.score
+        faculty_scores[user.faculty] += entry.score
+
+    user_scores = sort_dict_by_value(user_scores)
+    faculty_scores = sort_dict_by_value(faculty_scores)
+
     context = { 
-        'faculty_entries': faculty_entries,
-        'overall_winner': overall_winner,
+        "student_entries": user_scores,
+        'faculty_entries': faculty_scores,
+        'overall_winner': next(iter(faculty_scores)),
     }
     return render(request, 'leaderboard.html', context)

@@ -3,6 +3,8 @@ from django.contrib.auth.models import User as U
 
 class User(U):
     faculty = models.CharField(max_length=100)
+    def __str__(self):
+        return str(self.username)
 
 class Location(models.Model):
     locationName = models.CharField(max_length=100)
