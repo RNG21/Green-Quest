@@ -60,7 +60,8 @@ class CompleteTask(models.Model):
 
             if tasks_today.exists():
                 raise ValidationError("You cannot complete the same task more than once in a day.")
-
+            del kwargs["check_duplicate"]
+            
         super(CompleteTask, self).save(*args, **kwargs)
 
 
