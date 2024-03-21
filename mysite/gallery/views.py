@@ -6,6 +6,7 @@ from django.http import HttpRequest, JsonResponse
 from db.models import CompleteTask, Like
 
 def render_gallery(request: HttpRequest):
+    # Respond to post request
     body = request.body.decode('utf-8')
     if request.method=="POST" and request.user.is_authenticated:
 
@@ -26,7 +27,8 @@ def render_gallery(request: HttpRequest):
             is_liked = False
         return JsonResponse({"total_likes": total_likes, "is_liked": is_liked, "status": "ok"})
 
-    completed_tasks = CompleteTask.objects.all()
+
+    completed_tasks = [task for task in CompleteTask.objects.all() if task.showcase_image]
 
     context = {
         "tasks": completed_tasks

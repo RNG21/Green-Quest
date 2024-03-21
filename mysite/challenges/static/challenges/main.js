@@ -17,12 +17,9 @@ document.addEventListener("DOMContentLoaded", function() {
     popup_listeners();
 
     var completed = getCookie("completed_tasks");
-    console.log(completed);
     if (completed) {
         completed = JSON.parse(completed);
-        console.log(completed);
         for (var task_id of completed) {
-            console.log(task_id);
             document.getElementById(task_id).remove();
         }
     }

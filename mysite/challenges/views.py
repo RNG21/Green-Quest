@@ -68,5 +68,6 @@ def render_map(request: HttpRequest, tasks: Iterable[Task]=Task.objects.all()):
         "tasks": loc_tasks,
         "positions": json.dumps(positions),
         "center": json.dumps(settings.MAPS_CENTER_COORDINATES),
+        "timeout_millis": settings.MAPS_TIMEOUTMILLIS
     }
     return render(request, "challenges/map.html", context=context)
